@@ -36,7 +36,7 @@ export const Profile: React.FC = () => {
         (async () => {
             dispatch(loadUserWall(parseInt(params.id), page));
         })();
-    }, [page]);
+    }, [page, params.id]);
 
     const [isFollowed, setFollowed] = React.useState(
         Boolean(user.followed_by_me)

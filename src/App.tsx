@@ -24,7 +24,7 @@ function App() {
         if (failure) {
             hst.push('/signin');
         }
-    }, [dispatch]);
+    }, [failure]);
 
     if (loading) {
         return <div>loading..</div>;

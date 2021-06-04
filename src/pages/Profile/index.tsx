@@ -96,22 +96,23 @@ export const Profile: React.FC = () => {
                             Тут типа описание меня
                         </div>
                     </div>
-                    <Button
-                        onClick={gotoFolowers}
-                        variant="blue"
-                        className={styles.goto}
-                    >
-                        падпещики
-                    </Button>
-                    {loggedUser?.id !== user.id && (
+                    <div  className={styles.subscribeBtn}>
                         <Button
-                            onClick={toggleFollow}
-                            variant={isFollowed ? 'white' : 'blue'}
-                            className={styles.subscribeBtn}
+                            onClick={gotoFolowers}
+                            variant="blue"
                         >
-                            {isFollowed ? 'Отписаться' : 'Подписаться'}
+                            падпещики
                         </Button>
-                    )}
+                        {loggedUser?.id !== user.id && (
+                            <Button
+                                onClick={toggleFollow}
+                                variant={isFollowed ? 'white' : 'blue'}
+                               
+                            >
+                                {isFollowed ? 'Отписаться' : 'Подписаться'}
+                            </Button>
+                        )}
+                    </div>
                 </MainBlock>
                 {loggedUser?.id === user.id && <CreatePostForm />}
                 {loading && <div>Lodaing...</div>}

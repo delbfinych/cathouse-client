@@ -90,13 +90,12 @@ export const Post: React.FC<IPost> = (post) => {
                                 last_name={user.last_name}
                                 src={
                                     user.avatar_url &&
-                                    process.env.MEDIA_URL +
-                                        user.avatar_url
+                                    process.env.MEDIA_URL + user.avatar_url
                                 }
                             ></Avatar>
                             <div className={styles.userInfo}>
                                 <div className={styles.userName}>
-                                    {user.first_name}  {user.last_name}
+                                    {user.first_name} {user.last_name}
                                 </div>
                                 <div className={styles.publishDate}>
                                     {new Date(

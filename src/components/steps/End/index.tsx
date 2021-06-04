@@ -28,7 +28,7 @@ export const End: React.FC = () => {
                             width: '32px',
                             marginRight: '3px',
                         }}
-                        src={`${process.env.MEDIA_URL}/celebration.png`}
+                        src={`${process.env.REACT_APP_MEDIA_URL}/celebration.png`}
                         alt=""
                     />{' '}
                     Вы успешно зарегистрировались!

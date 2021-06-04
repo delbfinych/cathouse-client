@@ -47,7 +47,7 @@ export const CommentItem: React.FC<IComment> = ({
                     <Avatar
                         src={
                             user.avatar_url &&
-                            process.env.MEDIA_URL + user.avatar_url
+                            process.env.REACT_APP_MEDIA_URL + user.avatar_url
                         }
                         className={styles.avatar}
                         height="40px"

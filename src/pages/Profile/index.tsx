@@ -67,7 +67,7 @@ export const Profile: React.FC = () => {
                 >
                     <div
                         style={{
-                            backgroundImage: `url(${process.env.MEDIA_URL}/${user.background_image_url})`,
+                            backgroundImage: `url(${process.env.REACT_APP_MEDIA_URL}/${user.background_image_url})`,
                         }}
                         className={styles.bgFon}
                     ></div>

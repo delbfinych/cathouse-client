@@ -26,9 +26,9 @@ function App() {
         }
     }, [failure]);
 
-    if (loading) {
-        return <div>loading..</div>;
-    }
+    // if (loading) {
+    //     return <div>loading..</div>;
+    // }
     return (
         <div style={{ position: 'relative' }} className="d-flex flex-column">
             <Header></Header>

@@ -1,0 +1,30 @@
+.wrapper {
+    cursor: pointer;
+
+    &:hover > div {
+        background-color: #f5f5f3;
+    }
+    & span {
+        display: block;
+        width: 5px;
+        height: 5px;
+        background-color: #bbc4cf;
+        border-radius: 50%;
+
+        &:nth-child(2) {
+            margin: 4px 0;
+        }
+    }
+}
+
+.menu {
+    list-style: none;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: 0px 5px 5px -3px #00000033, 0px 8px 10px 1px #00000024,
+        0px 3px 14px 2px #0000001f;
+    padding: 10px;
+}

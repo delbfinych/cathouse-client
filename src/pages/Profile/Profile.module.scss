@@ -1,0 +1,51 @@
+.userInfo {
+    height: auto;
+    position: relative;
+}
+
+.bgFon {
+    // position: absolute;
+    // background-color: rgba(0, 0, 0, 0.2);
+
+    // position: absolute;
+    // z-index: 3;
+
+    // top: 0;
+    // bottom: 0;
+    // left: 0;
+    // right: 0;
+    height: 200px;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.bg {
+    bottom: 20px;
+    left: 20px;
+    color: white;
+}
+.infoBlock {
+    padding: 20px;
+}
+.name {
+    font-weight: 700;
+    color: var(--color-names);
+    font-size: 1.2rem;
+}
+.username {
+    color: #a1a6b0;
+    font-size: 0.9rem;
+}
+.avatar {
+    position: absolute;
+    top: 130px;
+    left: 20px;
+    border: 3px solid white;
+    background-color: white;
+}
+
+.subscribeBtn {
+    position: absolute;
+    right: 1%;
+    top: 67%;
+}

@@ -1,0 +1,53 @@
+.commentItem:not(:first-child) {
+    margin-top: 20px;
+}
+.commentItem {
+    position: relative;
+}
+.commentItem:hover .closeBtn {
+    opacity: 1;
+}
+.name {
+    font-weight: 700;
+    color: var(--color-names);
+    display: inline;
+    overflow-wrap: break-word;
+}
+
+.date {
+    color: #a1a6b0;
+    font-size: 0.9rem;
+}
+
+.closeBtn {
+    transition: opacity 80ms ease-in;
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+    padding: 3px;
+}
+
+.avatar {
+    margin-right: 10px;
+}
+
+.likesPanel {
+    display: none;
+    align-items: center;
+    position: absolute;
+    right: 0;
+    & div {
+        margin-right: 10px;
+        font-weight: 600;
+        font-size: 0.9rem;
+    }
+}
+
+.commentItem:hover .likesPanel {
+    display: flex;
+}
+.dontHide {
+    display: flex;
+}

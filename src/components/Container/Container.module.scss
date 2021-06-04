@@ -1,0 +1,9 @@
+.container {
+    width: 80vw;
+    margin: 0 auto;
+
+    @media screen and (max-width: 1024px) {
+        width: 100vw;
+    }
+    padding: 20px;
+}

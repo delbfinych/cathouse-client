@@ -1,0 +1,42 @@
+.right {
+    position: sticky;
+    top: calc(5vh + 20px);
+}
+@media screen and (max-width: 1024px) {
+    .right {
+        display: none;
+    }
+}
+
+.listTitle {
+    display: block;
+    margin-bottom: 10px;
+    margin-left: 40px;
+    font-weight: 600;
+    color: var(--color-gray);
+}
+a {
+    text-decoration: none;
+}
+
+.block {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.usersCount {
+    position: absolute;
+    right: 10px;
+    top: -2px;
+    border-radius: var(--border-radius);
+    padding: 2px 10px;
+    background-color: var(--color-gray);
+    color: white !important;
+    cursor: pointer;
+}
+
+.showAll {
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+}

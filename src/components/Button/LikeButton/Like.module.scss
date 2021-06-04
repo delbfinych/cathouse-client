@@ -1,0 +1,6 @@
+.wrapper {
+    cursor: pointer;
+    & svg[myAttr='true']:hover {
+        fill: #b1bac7;
+    }
+}

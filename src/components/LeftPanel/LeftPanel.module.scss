@@ -1,0 +1,54 @@
+.left {
+    position: sticky;
+    top: calc(5vh + 20px);
+    min-width: 17vw;
+}
+
+@media screen and (max-width: 1024px) {
+    .left {
+        min-width: 30vw;
+    }
+}
+.listItem {
+    flex-wrap: wrap;
+    border-left: 3px solid transparent;
+    &.active,
+    &:hover {
+        color: #1877f2;
+        border-color: #1877f2;
+    }
+    &.active svg,
+    &:hover svg {
+        fill: #1877f2;
+    }
+    cursor: pointer;
+    color: #4a617f;
+    font-weight: 600;
+    padding: 15px;
+    padding-left: 30px;
+    padding-right: 30px;
+    & svg {
+        fill: #b0bdcc;
+        width: 24px;
+        height: 24px;
+        margin-right: 10px;
+    }
+
+    & span {
+        position: relative;
+    }
+}
+.username {
+    color: #a1a6b0;
+    font-size: 0.9rem;
+}
+.name {
+    font-weight: 700;
+    color: var(--color-names);
+    display: inline;
+    overflow-wrap: break-word;
+}
+
+.avatar {
+    margin-right: 10px;
+}

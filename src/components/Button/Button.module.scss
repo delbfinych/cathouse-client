@@ -1,0 +1,33 @@
+@import '../../styles/globals.scss';
+
+.button {
+    border-radius: var(--border-radius);
+    padding: 10px;
+    cursor: pointer;
+    outline: none;
+    font-weight: 600;
+    transition: all 120ms ease-in;
+}
+
+.buttonBlue {
+    background-color: var(--color-blue);
+    border: 1px solid transparent;
+    color: white;
+
+    &:hover {
+        background-color: rgba(0, 113, 240, 0.7);
+    }
+}
+
+.buttonWhite {
+    background-color: #ffffff;
+    border: 1px solid #e2e4ec;
+    color: #4b617f;
+
+    &:hover {
+        background-color: rgba(#f5f5f5, 1.5);
+        // border: 1px solid var(--color-blue);
+        // color: white;
+    }
+}
+

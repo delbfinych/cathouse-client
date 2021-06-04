@@ -1,0 +1,10 @@
+.header {
+    height: 5vh;
+    background-color: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    @media screen and (max-width: 768px) {
+        height: 0;
+    }
+}

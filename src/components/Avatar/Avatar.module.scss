@@ -1,0 +1,17 @@
+.avatar {
+    border-radius: var(--border-radius);
+}
+
+.circle {
+    background-color: #ccc;
+    border-radius: var(--border-radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    color: white;
+    letter-spacing: 1pt;
+}
+
+.initials {
+}

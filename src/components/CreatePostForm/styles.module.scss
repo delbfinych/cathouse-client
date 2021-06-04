@@ -1,0 +1,68 @@
+.form {
+    padding: 20px;
+    display: flex;
+    align-items: flex-start;
+    position: relative;
+}
+
+.body {
+    margin: 0 10px;
+    padding: 10px;
+    width: calc(100% - 40px);
+
+    transition: 0.3s;
+}
+
+.postField {
+    outline: none;
+    border: none;
+}
+
+.placeholder {
+    color: var(--color-gray);
+}
+
+.btn {
+    position: absolute;
+    bottom: 20px;
+    display: none;
+    right: 20px;
+}
+
+.postField[contentEditable='true']:not(:empty) {
+    & + .btn {
+        display: block;
+    }
+    margin-bottom: 40px;
+}
+.postField[contentEditable='true']:empty:not(:focus):before {
+    content: attr(data-placeholder);
+    color: var(--color-gray);
+    pointer-events: none;
+
+    & .btn {
+        display: none;
+    }
+}
+
+.smile {
+    & svg {
+        cursor: pointer;
+        fill: #a1a6b0;
+    }
+
+    &:hover svg {
+        fill: #b1bac7;
+    }
+
+    position: absolute;
+    top: 30px;
+    right: 20px;
+}
+
+.emoji {
+    position: absolute;
+    z-index: 100;
+    right: 0;
+    top: 70px;
+}

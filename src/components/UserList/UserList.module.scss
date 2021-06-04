@@ -1,0 +1,31 @@
+.userName {
+    font-weight: 700;
+    color: var(--color-names);
+    display: flex;
+    flex-wrap: wrap;
+}
+
+ul {
+    list-style: none;
+}
+
+.avatar {
+    margin-right: 10px;
+}
+
+.li {
+    cursor: pointer;
+    position: relative;
+
+    &:not(:last-child) {
+        margin-bottom: 20px;
+    }
+}
+
+.options {
+    padding: 10px 20px;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    transform: rotate(90deg);
+}

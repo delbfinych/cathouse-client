@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import React from 'react';
-import { useParams } from 'react-router';
+import { useHistory, useParams } from 'react-router';
 import { IPost, postApi } from '../../api/post';
 import { IUser, userApi } from '../../api/user';
 import { Avatar } from '../../components/Avatar';
@@ -29,7 +29,6 @@ export const Profile: React.FC = () => {
             const res = (await userApi.getById(parseInt(params.id))).data;
             setUser(res);
             setFollowed(Boolean(res.followed_by_me));
-            dispatch(loadUserWall(parseInt(params.id), page));
         })();
     }, [params.id]);
 
@@ -49,6 +48,11 @@ export const Profile: React.FC = () => {
             dispatch(followUser(user));
         }
         setFollowed((t) => !t);
+    };
+    const hist = useHistory();
+
+    const gotoFolowers = () => {
+        hist.push(`/user/${user.id}/people`);
     };
 
     return (
@@ -92,6 +96,13 @@ export const Profile: React.FC = () => {
                             Тут типа описание меня
                         </div>
                     </div>
+                    <Button
+                        onClick={gotoFolowers}
+                        variant="blue"
+                        className={styles.goto}
+                    >
+                        падпещики
+                    </Button>
                     {loggedUser?.id !== user.id && (
                         <Button
                             onClick={toggleFollow}

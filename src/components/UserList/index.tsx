@@ -58,7 +58,7 @@ export const UserListItem: React.FC<TSimpleUser> = ({
                     last_name={last_name}
                     height="40px"
                     width="40px"
-                    src={avatar_url && process.env.MEDIA_UR + avatar_url}
+                    src={avatar_url && process.env.REACT_APP_MEDIA_URL + avatar_url}
                 />
                 <div className={styles.userName}>
                     {first_name} {last_name}

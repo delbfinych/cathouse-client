@@ -15,6 +15,7 @@ import { loadUserWall, reset } from '../../store/slices/userPosts';
 import { Right } from '../Index/Right';
 import styles from './Profile.module.scss';
 
+console.log(process.env.REACT_APP_MEDIA_URL);
 export const Profile: React.FC = () => {
     const params: { id: string } = useParams();
     const [user, setUser] = React.useState<IUser>({} as IUser);
@@ -77,7 +78,7 @@ export const Profile: React.FC = () => {
                         width="90px"
                         src={
                             user.avatar_url &&
-                            process.env.MEDIA_UR + user.avatar_url
+                            process.env.REACT_APP_MEDIA_URL + user.avatar_url
                         }
                         first_name={user.first_name}
                         last_name={user.last_name}

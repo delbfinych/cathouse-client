@@ -2,7 +2,7 @@ import axios from 'axios';
 // import { configure } from 'axios-hooks';
 
 export const http = axios.create({
-    baseURL: '/api/',
+    baseURL: 'https://calm-dusk-82304.herokuapp.com/api/',
 });
 
 http.interceptors.request.use(

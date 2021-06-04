@@ -33,7 +33,7 @@ export const CreatePostForm: React.FC = () => {
                 <Avatar
                     src={
                         user?.avatar_url &&
-                        'http://localhost:5000/media/' + user?.avatar_url
+                        process.env.MEDIA_URL + user?.avatar_url
                     }
                     height="40px"
                     width="40px"

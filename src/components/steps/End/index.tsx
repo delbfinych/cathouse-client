@@ -21,10 +21,14 @@ export const End: React.FC = () => {
                     padding: '40px 20px',
                 }}
             >
-                <h3 className={clsx(styles.text, "d-flex ai-center")}>
+                <h3 className={clsx(styles.text, 'd-flex ai-center')}>
                     <img
-                        style={{ height: '32px', width: '32px', marginRight: "3px"}}
-                        src="http://localhost:5000/media/celebration.png"
+                        style={{
+                            height: '32px',
+                            width: '32px',
+                            marginRight: '3px',
+                        }}
+                        src={`${process.env.MEDIA_URL}/celebration.png`}
                         alt=""
                     />{' '}
                     Вы успешно зарегистрировались!

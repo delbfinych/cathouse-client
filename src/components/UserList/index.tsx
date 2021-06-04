@@ -58,10 +58,7 @@ export const UserListItem: React.FC<TSimpleUser> = ({
                     last_name={last_name}
                     height="40px"
                     width="40px"
-                    src={
-                        avatar_url &&
-                        'http://localhost:5000/media/' + avatar_url
-                    }
+                    src={avatar_url && process.env.MEDIA_UR + avatar_url}
                 />
                 <div className={styles.userName}>
                     {first_name} {last_name}
@@ -69,7 +66,9 @@ export const UserListItem: React.FC<TSimpleUser> = ({
             </li>
             {loggedUser?.id !== id && (
                 <More className={styles.options}>
-                    <div onClick={toggleFollow}>{isFollowed ? 'Отписаться' : 'Подписаться'}</div>
+                    <div onClick={toggleFollow}>
+                        {isFollowed ? 'Отписаться' : 'Подписаться'}
+                    </div>
                 </More>
             )}
         </div>

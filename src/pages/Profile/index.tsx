@@ -10,19 +10,23 @@ import { LeftPanel } from '../../components/LeftPanel';
 import { MainBlock } from '../../components/MainBlock';
 import { Post } from '../../components/Post';
 import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useThrottledLazyLoading } from '../../hooks/useThrottleLazyLoading';
 import { followUser, unfollowUser } from '../../store/slices/people';
 import { loadUserWall, reset } from '../../store/slices/userPosts';
 import { Right } from '../Index/Right';
 import styles from './Profile.module.scss';
 
-console.log(process.env.REACT_APP_MEDIA_URL);
 export const Profile: React.FC = () => {
     const params: { id: string } = useParams();
     const [user, setUser] = React.useState<IUser>({} as IUser);
     const loggedUser = useAppSelector((state) => state.user.user);
     const dispatch = useAppDispatch();
-    const { posts, loading } = useAppSelector((state) => state.posts);
+    const { posts, loading, total_pages, total_count } = useAppSelector(
+        (state) => state.posts
+    );
     const [page, setPage] = React.useState(1);
+    const [total, setTotal] = React.useState(0);
+    // const [isFetching, setFetching] = React.useState(false);
     React.useEffect(() => {
         (async () => {
             dispatch(reset());
@@ -37,6 +41,8 @@ export const Profile: React.FC = () => {
             dispatch(loadUserWall(parseInt(params.id), page));
         })();
     }, [page, params.id]);
+
+    useThrottledLazyLoading(page, total_pages, setPage, 1000);
 
     const [isFollowed, setFollowed] = React.useState(
         Boolean(user.followed_by_me)
@@ -96,18 +102,14 @@ export const Profile: React.FC = () => {
                             Тут типа описание меня
                         </div>
                     </div>
-                    <div  className={styles.subscribeBtn}>
-                        <Button
-                            onClick={gotoFolowers}
-                            variant="blue"
-                        >
+                    <div className={styles.subscribeBtn}>
+                        <Button onClick={gotoFolowers} variant="blue">
                             падпещики
                         </Button>
                         {loggedUser?.id !== user.id && (
                             <Button
                                 onClick={toggleFollow}
                                 variant={isFollowed ? 'white' : 'blue'}
-                               
                             >
                                 {isFollowed ? 'Отписаться' : 'Подписаться'}
                             </Button>

@@ -7,19 +7,25 @@ import { IPost } from '../../api/post';
 import { userApi } from '../../api/user';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { loadFollowingWall, reset } from '../../store/slices/userPosts';
+import { useThrottledLazyLoading } from '../../hooks/useThrottleLazyLoading';
 
 export const Index: React.FC = () => {
     const dispatch = useAppDispatch();
     const user = useAppSelector((state) => state.user.user);
-    const {posts} = useAppSelector((state) => state.posts);
+    const { posts, total_pages } = useAppSelector((state) => state.posts);
+    const [page, setPage] = React.useState(1);
+    React.useEffect(() => {
+        dispatch(reset());
+    }, [user]);
     React.useEffect(() => {
         (async () => {
-            dispatch(reset());
             if (user) {
-                dispatch(loadFollowingWall(user.id, 1));
+                dispatch(loadFollowingWall(user.id, page));
             }
         })();
-    }, [user]);
+    }, [user, page]);
+
+    useThrottledLazyLoading(page, total_pages, setPage, 1000);
     return (
         <div style={{ alignItems: 'flex-start' }} className="d-flex">
             <LeftPanel></LeftPanel>

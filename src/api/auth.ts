@@ -1,3 +1,4 @@
+import { IUser } from './../../../cathouse-server/controllers/interfaces';
 import { http } from './http-client';
 
 interface IToken {
@@ -18,6 +19,6 @@ const signUp = (data: FormData) =>
 const verifyUsername = (username: string) =>
     http.get(`/auth/verifyUserName?username=${username}`);
 
-const verifyToken = () => http.get(`/auth/verifyToken`);
+const verifyToken = () => http.get<IUser>(`/auth/verifyToken`);
 
 export const authApi = { signIn, signUp, verifyUsername, verifyToken };

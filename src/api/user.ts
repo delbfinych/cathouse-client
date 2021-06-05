@@ -1,5 +1,10 @@
 import { IPost } from './post';
 import { http } from './http-client';
+export enum Roles {
+    USER = 1,
+    ADMIN = 3,
+    MODERATOR = 2,
+}
 
 export interface IUser {
     id: number;
@@ -12,6 +17,7 @@ export interface IUser {
     following_count: number;
     background_image_url: string;
     followed_by_me: number | null;
+    role: Roles;
 }
 const getById = (id: number) => http.get<IUser>(`/user/${id}`);
 

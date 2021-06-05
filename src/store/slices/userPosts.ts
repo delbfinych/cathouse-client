@@ -1,4 +1,4 @@
-import { userApi } from '../../api/user';
+import { IPaginationResponse, userApi } from '../../api/user';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AppThunk } from '..';
 import { IPost, postApi } from '../../api/post';
@@ -7,12 +7,19 @@ export const userPostSlice = createSlice({
     name: 'userPosts',
     initialState: {
         posts: [] as IPost[],
+        total_count: 0,
+        total_pages: 1,
         failure: false,
         loading: false,
     },
     reducers: {
-        setPosts: (state, action: PayloadAction<IPost[]>) => {
-            state.posts.push(...action.payload);
+        setPosts: (
+            state,
+            action: PayloadAction<IPaginationResponse<IPost>>
+        ) => {
+            state.posts.push(...action.payload.result);
+            state.total_count = action.payload.total_count;
+            state.total_pages = action.payload.total_pages;
         },
         setFailure: (state, action) => {
             state.failure = action.payload;
@@ -33,13 +40,10 @@ export const userPostSlice = createSlice({
         },
         update: (state, action: PayloadAction<IPost>) => {
             const post = action.payload;
-            const i = state.posts.findIndex(
-                (p) => p.post_id === post.post_id
-            );
+            const i = state.posts.findIndex((p) => p.post_id === post.post_id);
             console.log(state.posts[i]);
             state.posts[i] = post;
             console.log(state.posts[i]);
-
         },
     },
 });
@@ -52,7 +56,7 @@ export const loadUserWall =
         try {
             dispatch(setLoading(true));
             const res = await userApi.getPosts(id, page);
-            dispatch(setPosts(res.data.result));
+            dispatch(setPosts(res.data));
             dispatch(setFailure(false));
         } catch (err) {
             dispatch(setFailure(true));
@@ -66,7 +70,7 @@ export const loadFollowingWall =
         try {
             dispatch(setLoading(true));
             const res = await userApi.getFolliwingPosts(id, page);
-            dispatch(setPosts(res.data.result));
+            dispatch(setPosts(res.data));
             dispatch(setFailure(false));
         } catch (err) {
             dispatch(setFailure(true));

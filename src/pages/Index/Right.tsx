@@ -69,7 +69,7 @@ const List: React.FC<{
 
             <UserList>
                 {content.slice(0, MAX_LIST_SIZE).map((user) => (
-                    <UserListItem {...user}></UserListItem>
+                    <UserListItem key={user.id} {...user}></UserListItem>
                 ))}
                 {content.length > MAX_LIST_SIZE && (
                     <div onClick={onClick} className={styles.showAll}>

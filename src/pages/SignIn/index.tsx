@@ -12,7 +12,6 @@ import { authApi } from '../../api/auth';
 import jwt_decode from 'jwt-decode';
 import { useAppDispatch } from '../../hooks';
 import { setUserData, verifyUser } from '../../store/slices/user';
-import { UserData } from '../../store/slices/user';
 import { NavLink } from 'react-router-dom';
 
 type FormData = {

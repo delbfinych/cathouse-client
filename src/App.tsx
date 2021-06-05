@@ -17,16 +17,19 @@ import './styles/globals.scss';
 function App() {
     const dispatch = useAppDispatch();
     const hst = useHistory();
-    const { failure, loading } = useAppSelector((state) => state.user);
+    const { failure, user } = useAppSelector((state) => state.user);
 
     React.useEffect(() => {
         dispatch(verifyUser());
+    }, []);
+
+    React.useEffect(() => {
         if (failure) {
             hst.push('/signin');
         }
     }, [failure]);
 
-    if (loading) {
+    if (!user && !failure) {
         return <div></div>;
     }
     return (
@@ -40,8 +43,6 @@ function App() {
                     <Route exact path="/post/:id" component={PostPage} />
                     <Route exact path="/user/:id" component={Profile} />
                     <Route exact path="/user/:id/people" component={People} />
-                    <Route exact path="/user/:id/people/following" />
-                    <Route exact path="/user/:id/people/followers" />
 
                     <Route render={() => <h4>404 not found</h4>} />
                 </Switch>

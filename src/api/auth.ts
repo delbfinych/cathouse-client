@@ -1,5 +1,6 @@
-import { IUser } from './../../../cathouse-server/controllers/interfaces';
+
 import { http } from './http-client';
+import { IUser } from './user';
 
 interface IToken {
     token: string;

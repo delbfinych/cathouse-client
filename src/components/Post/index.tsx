@@ -68,7 +68,7 @@ export const Post: React.FC<IPost> = (post) => {
         result && dispatch(removePost(post.post_id));
     };
     const gotoDiscussion = () => history.push(`/post/${post.post_id}`);
-
+    const gotoProfile = () => history.push(`/user/${user?.id}`);
     if (!post) {
         return <div>Пост не найден :(</div>;
     }
@@ -90,10 +90,14 @@ export const Post: React.FC<IPost> = (post) => {
                                 last_name={user.last_name}
                                 src={
                                     user.avatar_url &&
-                                    process.env.REACT_APP_MEDIA_URL + user.avatar_url
+                                    process.env.REACT_APP_MEDIA_URL +
+                                        user.avatar_url
                                 }
                             ></Avatar>
-                            <div className={styles.userInfo}>
+                            <div
+                                onClick={gotoProfile}
+                                className={styles.userInfo}
+                            >
                                 <div className={styles.userName}>
                                     {user.first_name} {user.last_name}
                                 </div>

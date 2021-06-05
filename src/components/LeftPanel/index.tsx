@@ -46,7 +46,8 @@ const UserInfo: React.FC = () => {
                         <Avatar
                             src={
                                 user.avatar_url &&
-                                process.env.REACT_APP_MEDIA_URL + user.avatar_url
+                                process.env.REACT_APP_MEDIA_URL +
+                                    user.avatar_url
                             }
                             className={styles.avatar}
                             height="40px"
@@ -99,10 +100,7 @@ const Menu: React.FC = () => {
                 <MenuListItem to="/">
                     <NewsFeed /> <span>News</span>
                 </MenuListItem>
-                <MenuListItem to="/post4">
-                    <Profile /> <span>Profile</span>
-                </MenuListItem>
-                <MenuListItem to="/POST3">
+                <MenuListItem to="/settings/">
                     <Settings />
                     <span>Settings</span>
                 </MenuListItem>

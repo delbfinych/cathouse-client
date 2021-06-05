@@ -1,8 +1,14 @@
 import axios from 'axios';
 // import { configure } from 'axios-hooks';
 
+let baseURL = 'http://localhost:5000/api/';
+
+if (process.env.NODE_ENV === 'production') {
+    baseURL = 'https://calm-dusk-82304.herokuapp.com/api/';
+}
+
 export const http = axios.create({
-    baseURL: 'https://calm-dusk-82304.herokuapp.com/api/',
+    baseURL,
 });
 
 http.interceptors.request.use(
@@ -18,4 +24,3 @@ http.interceptors.request.use(
         Promise.reject(error);
     }
 );
-

@@ -32,7 +32,7 @@ const UserInfo: React.FC = () => {
     const gotoProfile = () =>
         user ? history.push(`/user/${user.id}`) : history.push('/signin');
     return (
-        <div onClick={gotoProfile}>
+        <div className={styles.userInfo} onClick={gotoProfile}>
             <MainBlock
                 className="d-flex cup"
                 style={{

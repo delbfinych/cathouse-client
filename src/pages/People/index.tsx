@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import React from 'react';
 import { Route, useLocation, useParams } from 'react-router';
 import { TSimpleUser, userApi } from '../../api/user';
@@ -37,7 +38,10 @@ export const People: React.FC = () => {
     //     }, 300);
     // };
     return (
-        <div style={{ alignItems: 'flex-start' }} className="d-flex">
+        <div
+            style={{ alignItems: 'flex-start' }}
+            className={clsx('d-flex', styles.main)}
+        >
             <LeftPanel />
             <MainBlock style={{ padding: '20px', minWidth: '40vw' }}>
                 <Tabs
@@ -46,7 +50,7 @@ export const People: React.FC = () => {
                     className={styles.tabs}
                 >
                     <Tab className={styles.tab} title="Подписчики">
-                        <UsersSearchInput  />
+                        <UsersSearchInput />
                         {followers.length > 0 ? (
                             <List content={followers} />
                         ) : (

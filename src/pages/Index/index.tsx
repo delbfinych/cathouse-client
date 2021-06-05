@@ -8,6 +8,8 @@ import { userApi } from '../../api/user';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { loadFollowingWall, reset } from '../../store/slices/userPosts';
 import { useThrottledLazyLoading } from '../../hooks/useThrottleLazyLoading';
+import clsx from 'clsx';
+import styles from './Styles.module.scss';
 
 export const Index: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -29,10 +31,7 @@ export const Index: React.FC = () => {
     return (
         <div style={{ alignItems: 'flex-start' }} className="d-flex">
             <LeftPanel></LeftPanel>
-            <div
-                className="d-flex flex-column"
-                style={{ maxWidth: '35vw', minWidth: '35vw' }}
-            >
+            <div className={styles.middle}>
                 <CreatePostForm />
                 {posts.map((post) => (
                     <Post key={post.post_id} {...post}></Post>

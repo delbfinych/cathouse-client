@@ -2,12 +2,13 @@
     position: sticky;
     top: calc(5vh + 20px);
 }
-@media screen and (max-width: 1024px) {
-    .right {
-        display: none;
-    }
-}
 
+.middle {
+    min-width: 35vw;
+    max-width: 35vw;
+    display: flex;
+    flex-direction: column;
+}
 .listTitle {
     display: block;
     margin-bottom: 10px;
@@ -39,4 +40,13 @@ a {
     font-weight: 600;
     cursor: pointer;
     text-align: center;
+}
+@media screen and (max-width: 1024px) {
+    .right {
+        display: none;
+    }
+    .middle {
+        min-width: 100% !important;
+        display: block !important;
+    }
 }

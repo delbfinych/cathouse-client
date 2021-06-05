@@ -6,5 +6,5 @@ interface IProps {
     className?: string;
 }
 export const Container: React.FC<IProps> = ({ children, className }) => {
-    return <div className={clsx(styles.container, className)}>{children}</div>;
+    return <div className={clsx(className, styles.container)}>{children}</div>;
 };

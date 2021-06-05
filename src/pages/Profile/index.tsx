@@ -65,7 +65,7 @@ export const Profile: React.FC = () => {
         <div style={{ alignItems: 'flex-start' }} className="d-flex">
             <LeftPanel></LeftPanel>
             <div
-                className="d-flex flex-column"
+                className={clsx('d-flex flex-column', styles.middle)}
                 style={{ maxWidth: '35vw', minWidth: '35vw' }}
             >
                 <MainBlock

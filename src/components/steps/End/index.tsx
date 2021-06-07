@@ -4,10 +4,14 @@ import { MainBlock } from '../../MainBlock';
 import styles from '../Zero/Zero.module.scss';
 import { useHistory } from 'react-router-dom';
 import clsx from 'clsx';
+import { useAppDispatch } from '../../../hooks';
+import { verifyUser } from '../../../store/slices/user';
 
 export const End: React.FC = () => {
     const history = useHistory();
+    const dispatch = useAppDispatch();
     const handleClick = () => {
+        dispatch(verifyUser());
         history.push('/');
     };
     return (

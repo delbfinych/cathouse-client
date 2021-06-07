@@ -62,6 +62,13 @@ const getFolliwingPosts = (id: number, page: number) =>
 const getPosts = (id: number, page: number) =>
     http.get<IPaginationResponse<IPost>>(`user/${id}/posts?page=${page}`);
 
+const update = (id: number, form: FormData) =>
+    http.post(`user/${id}`, form, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    });
+
 export const userApi = {
     getById,
     getFollowing,
@@ -71,4 +78,5 @@ export const userApi = {
     getFolliwingPosts,
     getPosts,
     search,
+    update,
 };

@@ -1,10 +1,10 @@
-import React, { Dispatch, MutableRefObject } from 'react';
+import React, { MutableRefObject } from 'react';
 import { First } from '../../components/steps/First';
 import { Second } from '../../components/steps/Second';
 import { Zero } from '../../components/steps/Zero';
 import { AvatarStep } from '../../components/steps/Avatar';
 import { End } from '../../components/steps/End';
-import axios from 'axios';
+
 import { authApi } from '../../api/auth';
 
 const steps = [Zero, First, Second, AvatarStep, End];

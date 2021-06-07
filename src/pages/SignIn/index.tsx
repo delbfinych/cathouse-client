@@ -34,7 +34,7 @@ export const SignIn: React.FC = () => {
             setLoading(true);
             const res = await authApi.signIn(data);
             localStorage.setItem('access_token', res.data.token);
-            dispatch(verifyUser());
+            // dispatch(verifyUser());
             history.push('/');
         } catch (error) {
             setAuthError(error.response.data.error.message);

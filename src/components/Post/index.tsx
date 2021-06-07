@@ -20,7 +20,6 @@ export const Post: React.FC<IPost> = (post) => {
     const [islike, setlike] = React.useState(false);
     const [isDislike, setDislike] = React.useState(false);
 
-    const [update, forceUpdate] = React.useState(false);
 
     const history = useHistory();
     React.useEffect(() => {

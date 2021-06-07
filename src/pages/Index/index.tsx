@@ -6,11 +6,16 @@ import { CreatePostForm } from '../../components/CreateForm/CreatePostForm';
 import { IPost } from '../../api/post';
 import { userApi } from '../../api/user';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { addPost, loadFollowingWall, reset } from '../../store/slices/userPosts';
+import {
+    addPost,
+    loadFollowingWall,
+    reset,
+} from '../../store/slices/userPosts';
 import { useThrottledLazyLoading } from '../../hooks/useThrottleLazyLoading';
 import clsx from 'clsx';
 import styles from './Styles.module.scss';
 import { Loader } from '../../components/Loader/Loader';
+import { useHistory } from 'react-router';
 
 export const Index: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -33,7 +38,7 @@ export const Index: React.FC = () => {
     const handleSubmit = async (text: string) => {
         dispatch(addPost(text));
     };
-
+    
     useThrottledLazyLoading(page, total_pages, setPage, 1000);
     return (
         <div style={{ alignItems: 'flex-start' }} className="d-flex">

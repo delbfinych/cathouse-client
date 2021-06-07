@@ -31,15 +31,15 @@ export const Header: React.FC = () => {
                 <h3 className="cup" onClick={() => history.push('/')}>
                     CatHouse
                 </h3>
-                <div>
-                    <Button
-                        onClick={() => setOpen(true)}
-                        className={styles.btn}
-                        variant="blue"
-                    >
-                        Создать
-                    </Button>
-                    {user && (
+                {user && (
+                    <div>
+                        <Button
+                            onClick={() => setOpen(true)}
+                            className={styles.btn}
+                            variant="blue"
+                        >
+                            Создать
+                        </Button>
                         <div
                             className="cup"
                             onClick={() => history.push('/user/' + user.id)}
@@ -56,8 +56,8 @@ export const Header: React.FC = () => {
                                 }
                             />
                         </div>
-                    )}
-                </div>
+                    </div>
+                )}
             </Container>
             <Dialog
                 isOpen={isOpen}

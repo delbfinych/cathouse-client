@@ -33,6 +33,7 @@ export const SignIn: React.FC = () => {
         try {
             setLoading(true);
             const res = await authApi.signIn(data);
+            console.log(res);
             localStorage.setItem('access_token', res.data.token);
             dispatch(verifyUser());
             history.push('/');

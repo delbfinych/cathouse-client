@@ -43,18 +43,19 @@ function App() {
     }
     return (
         <div style={{ position: 'relative' }} className="d-flex flex-column">
-            <Header></Header>
+            <Header />
             <Container className="d-flex ai-center">
                 <Switch>
                     <Route exact path="/signup" component={SignUp} />
                     <Route exact path="/signin" component={SignIn} />
+
                     <Route exact path="/" component={Index} />
                     <Route exact path="/post/:id" component={PostPage} />
                     <Route exact path="/user/:id" component={Profile} />
                     <Route exact path="/user/:id/people" component={People} />
-                    {/* <Route exact path="/settings/" component={Settings} /> */}
-
                     <Route render={() => <h4>404 not found</h4>} />
+
+                    {/* <Route exact path="/settings/" component={Settings} /> */}
                 </Switch>
             </Container>
         </div>
@@ -62,3 +63,12 @@ function App() {
 }
 
 export default App;
+
+const WithHeader: React.FC = ({ children }) => {
+    return (
+        <>
+            <Header />
+            {children}
+        </>
+    );
+};

@@ -6,6 +6,7 @@ import { IUser, userApi } from '../../api/user';
 import { Avatar } from '../../components/Avatar';
 import { Button } from '../../components/Button';
 import { CreatePostForm } from '../../components/CreateForm/CreatePostForm';
+import { AlertDialog } from '../../components/Dialog/AlertDialog';
 import { LeftPanel } from '../../components/LeftPanel';
 import { Loader } from '../../components/Loader/Loader';
 import { MainBlock } from '../../components/MainBlock';
@@ -13,7 +14,7 @@ import { Post } from '../../components/Post';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useThrottledLazyLoading } from '../../hooks/useThrottleLazyLoading';
 import { followUser, unfollowUser } from '../../store/slices/people';
-import { loadUserWall, reset } from '../../store/slices/userPosts';
+import { addPost, loadUserWall, reset } from '../../store/slices/userPosts';
 import { Right } from '../Index/Right';
 import styles from './Profile.module.scss';
 
@@ -54,6 +55,9 @@ export const Profile: React.FC = () => {
             dispatch(followUser(user));
         }
         setFollowed((t) => !t);
+        if (isDialogOpen) {
+            setOpen(false);
+        }
     };
     const hist = useHistory();
 
@@ -61,6 +65,17 @@ export const Profile: React.FC = () => {
         hist.push(`/user/${user.id}/people`);
     };
 
+    const handleFollowClick = () => {
+        if (!isFollowed) {
+            toggleFollow();
+        } else {
+            setOpen(true);
+        }
+    };
+    const [isDialogOpen, setOpen] = React.useState(false);
+    const handleSubmit = async (text: string) => {
+        dispatch(addPost(text));
+    };
     return (
         <div style={{ alignItems: 'flex-start' }} className="d-flex">
             <LeftPanel></LeftPanel>
@@ -108,7 +123,7 @@ export const Profile: React.FC = () => {
                         </Button>
                         {loggedUser?.id !== user.id && (
                             <Button
-                                onClick={toggleFollow}
+                                onClick={handleFollowClick}
                                 variant={isFollowed ? 'white' : 'blue'}
                             >
                                 {isFollowed ? 'Отписаться' : 'Подписаться'}
@@ -116,16 +131,28 @@ export const Profile: React.FC = () => {
                         )}
                     </div>
                 </MainBlock>
-                {loggedUser?.id === user.id && <CreatePostForm />}
+                {loggedUser?.id === user.id && (
+                    <CreatePostForm onSubmit={handleSubmit} />
+                )}
                 {!posts.length && !loading && <div>Пока шо тут пусто...</div>}
                 {posts &&
                     posts.map((post) => (
                         <Post key={post.post_id} {...post}></Post>
                     ))}
-                    {loading && <div className="d-flex jc-center"><Loader color="blue" height="50px" width="50px"/></div>}
+                {loading && (
+                    <div className="d-flex jc-center">
+                        <Loader color="blue" height="50px" width="50px" />
+                    </div>
+                )}
             </div>
 
             <Right />
+            <AlertDialog
+                isOpen={isDialogOpen && isFollowed}
+                onCancel={() => setOpen(false)}
+                onSubmit={toggleFollow}
+                message={`Уверены, что хотите отписаться от ${user.first_name} ${user.last_name}?`}
+            />
         </div>
     );
 };

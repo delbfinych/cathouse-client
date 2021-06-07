@@ -8,6 +8,7 @@ import { More } from '../More';
 import { IUser, TSimpleUser, userApi } from '../../api/user';
 import { useHistory } from 'react-router';
 import { useAppSelector } from '../../hooks';
+import { AlertDialog } from '../Dialog/AlertDialog';
 
 export const UserList: React.FC = ({ children }) => {
     return (
@@ -43,9 +44,21 @@ export const UserListItem: React.FC<TSimpleUser> = ({
                 await userApi.follow(id);
             }
             setFollowed((t) => !t);
+            if (isDialogOpen) {
+                setOpen(false);
+            }
         } catch (error) {}
     };
+    const handleFollowClick = () => {
+        if (!isFollowed) {
+            toggleFollow();
+        } else {
+            setOpen(true);
+        }
+    };
     const gotoProfile = () => history.push(`/user/${id}`);
+
+    const [isDialogOpen, setOpen] = React.useState(false);
     return (
         <div style={{ position: 'relative' }}>
             <li
@@ -69,11 +82,17 @@ export const UserListItem: React.FC<TSimpleUser> = ({
             </li>
             {loggedUser?.id !== id && (
                 <More className={styles.options}>
-                    <div onClick={toggleFollow}>
+                    <div onClick={handleFollowClick}>
                         {isFollowed ? 'Отписаться' : 'Подписаться'}
                     </div>
                 </More>
             )}
+            <AlertDialog
+                isOpen={isDialogOpen && isFollowed}
+                onCancel={() => setOpen(false)}
+                onSubmit={toggleFollow}
+                message={`Уверены, что хотите отписаться от ${first_name} ${last_name}?`}
+            />
         </div>
     );
 };

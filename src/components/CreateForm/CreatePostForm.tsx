@@ -12,21 +12,23 @@ import styles from './styles.module.scss';
 import { Smile } from './Smile';
 import { addPost } from '../../store/slices/userPosts';
 
-export const CreatePostForm: React.FC = () => {
+interface IProps {
+    onSubmit: (text: string) => any;
+}
+export const CreatePostForm: React.FC<IProps> = ({ onSubmit }) => {
     const { user } = useAppSelector((state) => state.user);
     const inputRef = React.useRef<HTMLDivElement>(null);
 
     const [isEmojiPicking, setPicking] = React.useState(false);
 
     const loading = useAppSelector((state) => state.posts.loading);
-    const dispatch = useAppDispatch();
-    const submit = async (e: any) => {
+
+    const handleSumbit = (e: any) => {
         e.preventDefault();
         const text = inputRef.current?.innerText!;
-        dispatch(addPost(text));
+        onSubmit(text);
         inputRef.current!.innerText = '';
     };
-
     return (
         <MainBlock style={{ marginBottom: '20px' }}>
             <form className={styles.form}>
@@ -48,7 +50,11 @@ export const CreatePostForm: React.FC = () => {
                     className={clsx(styles.postField, styles.body)}
                     placeholder="asd"
                 ></div>
-                <Button onClick={submit} className={styles.btn} variant="blue">
+                <Button
+                    onClick={handleSumbit}
+                    className={styles.btn}
+                    variant="blue"
+                >
                     {loading ? (
                         <Loader height="10px" width="30px" color="white" />
                     ) : (

@@ -50,7 +50,7 @@ export const People: React.FC = () => {
                     className={styles.tabs}
                 >
                     <Tab className={styles.tab} title="Подписчики">
-                        <UsersSearchInput />
+                        {/* <UsersSearchInput /> */}
                         {followers.length > 0 ? (
                             <List content={followers} />
                         ) : (
@@ -58,7 +58,7 @@ export const People: React.FC = () => {
                         )}
                     </Tab>
                     <Tab className={styles.tab} title="Подписки">
-                        <UsersSearchInput />
+                        {/* <UsersSearchInput /> */}
                         {following.length > 0 ? (
                             <List content={following} />
                         ) : (

@@ -10,7 +10,7 @@ interface IProps {
 }
 export const Button: React.FC<
     IProps & React.ButtonHTMLAttributes<HTMLButtonElement>
-> = ({ children, variant, disabled = false, onClick, className, type }) => {
+> = ({ children, variant, disabled = false, onClick, className, type, ...props }) => {
     const variants = {
         blue: styles.buttonBlue,
         white: styles.buttonWhite,
@@ -21,6 +21,7 @@ export const Button: React.FC<
             className={clsx(className, styles.button, variants[variant])}
             onClick={onClick}
             disabled={disabled}
+            {...props}
         >
             {children}
         </button>

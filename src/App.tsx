@@ -8,6 +8,7 @@ import { Index } from './pages/Index';
 import { People } from './pages/People';
 import { PostPage } from './pages/PostPage';
 import { Profile } from './pages/Profile';
+import { Settings } from './pages/Settings';
 import { SignIn } from './pages/SignIn';
 // import { Button } from './components/Button';
 // import { MainBlock } from './components/MainBlock';
@@ -51,6 +52,7 @@ function App() {
                     <Route exact path="/post/:id" component={PostPage} />
                     <Route exact path="/user/:id" component={Profile} />
                     <Route exact path="/user/:id/people" component={People} />
+                    <Route exact path="/settings/" component={Settings} />
 
                     <Route render={() => <h4>404 not found</h4>} />
                 </Switch>

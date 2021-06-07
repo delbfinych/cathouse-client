@@ -26,7 +26,6 @@ export const PostPage: React.FC = () => {
             setPost((await postApi.getById(parseInt(id))).data);
         })();
     }, []);
-    console.log(comments);
     React.useEffect(() => {
         (async () => {
             dispatch(loadComments(parseInt(id), page));
@@ -71,7 +70,7 @@ export const PostPage: React.FC = () => {
                         Показать ещё
                     </div>
                 )}
-                <div style={{marginTop: "20px"}}>
+                <div style={{ marginTop: '20px' }}>
                     <CreateCommentForm id={parseInt(id)} />
                 </div>
             </div>

@@ -6,7 +6,7 @@ import { CreatePostForm } from '../../components/CreateForm/CreatePostForm';
 import { IPost } from '../../api/post';
 import { userApi } from '../../api/user';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { loadFollowingWall, reset } from '../../store/slices/userPosts';
+import { addPost, loadFollowingWall, reset } from '../../store/slices/userPosts';
 import { useThrottledLazyLoading } from '../../hooks/useThrottleLazyLoading';
 import clsx from 'clsx';
 import styles from './Styles.module.scss';
@@ -30,12 +30,16 @@ export const Index: React.FC = () => {
         })();
     }, [user, page]);
 
+    const handleSubmit = async (text: string) => {
+        dispatch(addPost(text));
+    };
+
     useThrottledLazyLoading(page, total_pages, setPage, 1000);
     return (
         <div style={{ alignItems: 'flex-start' }} className="d-flex">
             <LeftPanel></LeftPanel>
             <div className={styles.middle}>
-                <CreatePostForm />
+                <CreatePostForm onSubmit={handleSubmit} />
                 {posts.map((post) => (
                     <Post key={post.post_id} {...post}></Post>
                 ))}

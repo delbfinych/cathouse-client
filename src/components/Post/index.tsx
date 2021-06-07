@@ -12,6 +12,9 @@ import { More } from '../More';
 import { ChatButton } from './ChatButton/';
 import styles from './Post.module.scss';
 import { removePost, updatePost } from '../../store/slices/userPosts';
+import { Dialog } from '../Dialog';
+import { Button } from '../Button';
+import { AlertDialog } from '../Dialog/AlertDialog';
 interface IProps {
     id: number;
 }
@@ -19,7 +22,6 @@ export const Post: React.FC<IPost> = (post) => {
     const [user, setUser] = React.useState<IUser | null>(null);
     const [islike, setlike] = React.useState(false);
     const [isDislike, setDislike] = React.useState(false);
-
 
     const history = useHistory();
     React.useEffect(() => {
@@ -63,14 +65,15 @@ export const Post: React.FC<IPost> = (post) => {
     const dispatch = useAppDispatch();
 
     const deletePost = () => {
-        const result = prompt('Вы уверены, что хотите удалить пост?');
-        result && dispatch(removePost(post.post_id));
+        dispatch(removePost(post.post_id));
     };
     const gotoDiscussion = () => history.push(`/post/${post.post_id}`);
     const gotoProfile = () => history.push(`/user/${user?.id}`);
+    const [isDialogOpen, setOpen] = React.useState(false);
     if (!post) {
         return <div>Пост не найден :(</div>;
     }
+
     return (
         <div>
             <MainBlock
@@ -107,7 +110,7 @@ export const Post: React.FC<IPost> = (post) => {
                                 </div>
                             </div>
                             <More className={styles.options}>
-                                <li onClick={deletePost}>Удалить</li>
+                                <li onClick={() => setOpen(true)}>Удалить</li>
                             </More>
                         </div>
                         <div className={styles.body}>{post.body}</div>
@@ -138,6 +141,12 @@ export const Post: React.FC<IPost> = (post) => {
                     </div>
                 )}
             </MainBlock>
+            <AlertDialog
+                isOpen={isDialogOpen}
+                onCancel={() => setOpen(false)}
+                onSubmit={deletePost}
+                message="Уверены, что хотите удалить пост?"
+            />
         </div>
     );
 };

@@ -5,7 +5,7 @@ import { AppThunk } from '..';
 import { postApi } from '../../api/post';
 
 export const peopleSlice = createSlice({
-    name: 'userPosts',
+    name: 'people',
     initialState: {
         following: { data: [] as TSimpleUser[], total_count: 0 },
         followers: { data: [] as TSimpleUser[], total_count: 0 },

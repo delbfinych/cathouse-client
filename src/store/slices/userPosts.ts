@@ -41,9 +41,7 @@ export const userPostSlice = createSlice({
         update: (state, action: PayloadAction<IPost>) => {
             const post = action.payload;
             const i = state.posts.findIndex((p) => p.post_id === post.post_id);
-            console.log(state.posts[i]);
             state.posts[i] = post;
-            console.log(state.posts[i]);
         },
     },
 });

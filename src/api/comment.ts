@@ -10,7 +10,7 @@ export interface IComment {
     updatedAt: string;
     likes_count: number;
     dislikes_count: number;
-    // liked_by_me: number | null;
+    liked_by_me: number | null;
 }
 const getById = (id: number) => http.get<IComment>(`/comment/${id}`);
 

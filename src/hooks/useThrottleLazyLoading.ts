@@ -15,7 +15,7 @@ export const useThrottledLazyLoading = (
                 return;
             }
             if (
-                (window.innerHeight + scrolled) / allHeight >= 0.9 &&
+                (window.innerHeight + scrolled) / allHeight >= 0.95 &&
                 page <= total_pages
             ) {
                 isThrottle.current = true;

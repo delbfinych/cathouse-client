@@ -5,8 +5,9 @@ import { IPost, postApi } from '../../api/post';
 import { IUser, userApi } from '../../api/user';
 import { Avatar } from '../../components/Avatar';
 import { Button } from '../../components/Button';
-import { CreatePostForm } from '../../components/CreatePostForm';
+import { CreatePostForm } from '../../components/CreateForm/CreatePostForm';
 import { LeftPanel } from '../../components/LeftPanel';
+import { Loader } from '../../components/Loader/Loader';
 import { MainBlock } from '../../components/MainBlock';
 import { Post } from '../../components/Post';
 import { useAppDispatch, useAppSelector } from '../../hooks';
@@ -21,11 +22,10 @@ export const Profile: React.FC = () => {
     const [user, setUser] = React.useState<IUser>({} as IUser);
     const loggedUser = useAppSelector((state) => state.user.user);
     const dispatch = useAppDispatch();
-    const { posts, loading, total_pages, total_count } = useAppSelector(
+    const { posts, loading, total_pages } = useAppSelector(
         (state) => state.posts
     );
     const [page, setPage] = React.useState(1);
-    const [total, setTotal] = React.useState(0);
     // const [isFetching, setFetching] = React.useState(false);
     React.useEffect(() => {
         (async () => {
@@ -117,12 +117,12 @@ export const Profile: React.FC = () => {
                     </div>
                 </MainBlock>
                 {loggedUser?.id === user.id && <CreatePostForm />}
-                {loading && <div>Lodaing...</div>}
                 {!posts.length && !loading && <div>Пока шо тут пусто...</div>}
                 {posts &&
                     posts.map((post) => (
                         <Post key={post.post_id} {...post}></Post>
                     ))}
+                    {loading && <div className="d-flex jc-center"><Loader color="blue" height="50px" width="50px"/></div>}
             </div>
 
             <Right />

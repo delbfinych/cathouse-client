@@ -33,7 +33,7 @@ export const Post: React.FC<IPost> = (post) => {
                 setDislike(true);
             }
         })();
-    }, [update]);
+    }, []);
 
     const markAsLiked = async () => {
         setlike((prev) => !prev);

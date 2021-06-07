@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Switch, useHistory } from 'react-router';
 import { Container } from './components/Container';
 import { Header } from './components/Header';
+import { Loader } from './components/Loader/Loader';
 import { useAppDispatch, useAppSelector } from './hooks';
 import { Index } from './pages/Index';
 import { People } from './pages/People';
@@ -30,7 +31,14 @@ function App() {
     }, [failure]);
 
     if (!user && !failure) {
-        return <div></div>;
+        return (
+            <div
+                className="d-flex jc-center ai-center"
+                style={{ height: '100vh' }}
+            >
+                <Loader height="50px" width="50px" color="blue" />
+            </div>
+        );
     }
     return (
         <div style={{ position: 'relative' }} className="d-flex flex-column">

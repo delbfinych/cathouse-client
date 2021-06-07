@@ -28,6 +28,8 @@ export const AvatarStep: React.FC = () => {
         if (inputRef.current) {
             inputRef.current.addEventListener('change', handleInputChange);
         }
+        return () =>
+            inputRef.current?.removeEventListener('change', handleInputChange);
     }, []);
 
     const [isLoading, setLoading] = React.useState(false);
@@ -49,7 +51,7 @@ export const AvatarStep: React.FC = () => {
                 description="Осталось загрузить аватарку"
             />
             <MainBlock
-                className="d-flex flex-column ai-center"
+                className="d-flex flex-column ai-center m-auto"
                 style={{
                     background: 'white',
                     width: '350px',

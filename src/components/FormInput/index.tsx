@@ -3,10 +3,9 @@ import clsx from 'clsx';
 import styles from './FormInput.module.scss';
 
 interface IProps {
-    text?: string;
     className?: string;
     onChange?: ChangeEventHandler<HTMLInputElement>;
-    placeholder: string;
+    placeholder?: string;
     type?: string;
     error?: boolean;
     value?: string;

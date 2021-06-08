@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import React from 'react';
-import { Route, useLocation, useParams } from 'react-router';
+import { useLocation, useParams } from 'react-router';
 import { TSimpleUser, userApi } from '../../api/user';
 import { FormInput } from '../../components/FormInput';
 import { LeftPanel } from '../../components/LeftPanel';
@@ -27,16 +27,7 @@ export const People: React.FC = () => {
     }, [user]);
 
     const [result, setResult] = React.useState([] as TSimpleUser[]);
-    // let timeout = React.useRef(0);
-    // const handleChange = (event: any) => {
-    //     const value = event.target.value;
-    //     if (timeout) clearTimeout(timeout.current);
-    //     setSearchValue(value);
-    //     timeout.current = window.setTimeout(() => {
-    //         //@ts-ignore
-    //         if (value) find(value, 1, true).then(() => setFindStatus(true));
-    //     }, 300);
-    // };
+
     return (
         <div
             style={{ alignItems: 'flex-start' }}

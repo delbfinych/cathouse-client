@@ -19,9 +19,10 @@ import './styles/globals.scss';
 function App() {
     const dispatch = useAppDispatch();
     const hst = useHistory();
-    const { failure, loading } = useAppSelector((state) => state.user);
+    const { failure, loading, user } = useAppSelector((state) => state.user);
 
     React.useEffect(() => {
+        console.log("ASD");
         dispatch(verifyUser());
     }, []);
 

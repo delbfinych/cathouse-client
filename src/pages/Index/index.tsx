@@ -20,6 +20,7 @@ import { useHistory } from 'react-router';
 export const Index: React.FC = () => {
     const dispatch = useAppDispatch();
     const user = useAppSelector((state) => state.user.user);
+    console.log(user);
     const { posts, total_pages, loading } = useAppSelector(
         (state) => state.posts
     );
@@ -29,18 +30,17 @@ export const Index: React.FC = () => {
     }, [user]);
     React.useEffect(() => {
         (async () => {
-            console.log(page, user);
-         
             if (user) {
                 dispatch(loadFollowingWall(user.id, page));
             }
         })();
     }, [user, page]);
 
+
     const handleSubmit = async (text: string) => {
         dispatch(addPost(text));
     };
-    
+
     useThrottledLazyLoading(page, total_pages, setPage, 1000);
     return (
         <div style={{ alignItems: 'flex-start' }} className="d-flex">

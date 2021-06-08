@@ -128,7 +128,13 @@ export const Profile: React.FC = () => {
                                 </Button>
                             )}
                         </div>
-                        {loggedUser?.id === user.id && <DescriptionEditor />}
+                        {loggedUser?.id === user.id ? (
+                            <DescriptionEditor />
+                        ) : (
+                            <div className={styles.description}>
+                                {user?.description}
+                            </div>
+                        )}
                     </div>
                 </MainBlock>
                 {loggedUser?.id === user.id && (
@@ -164,16 +170,16 @@ const DescriptionEditor: React.FC = () => {
     const dispatch = useAppDispatch();
 
     const Description: React.FC = () => {
-        return user?.description ? (
-            <div onClick={() => setOpen(true)} className={styles.description}>
-                {user.description}
-            </div>
-        ) : (
+        return (
             <div
                 onClick={() => setOpen(true)}
-                className={styles.emptyDescription}
+                className={clsx(
+                    styles.descripion,
+                    !user?.description && styles.emptyDescription,
+                    'cup'
+                )}
             >
-                {'Изменить описание...'}
+                {user?.description ?? 'Изменить описание...'}
             </div>
         );
     };

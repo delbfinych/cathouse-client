@@ -30,6 +30,8 @@ export const commentsSlice = createSlice({
         },
         reset: (state) => {
             state.comments = [];
+            state.total_count = 0;
+            state.total_pages = 1;
         },
         append: (state, action: PayloadAction<IComment>) => {
             state.comments.push(action.payload);

@@ -20,6 +20,9 @@ export const userSlice = createSlice({
         setLoading: (state, action) => {
             state.loading = action.payload;
         },
+        reset: (state) => {
+            state.user = null;
+        },
     },
 });
 
@@ -51,6 +54,6 @@ export const update =
             dispatch(setLoading(false));
         }
     };
-export const { setUserData } = userSlice.actions;
+export const { setUserData, reset } = userSlice.actions;
 
 export default userSlice.reducer;

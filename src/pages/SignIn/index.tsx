@@ -10,8 +10,8 @@ import { Loader } from '../../components/Loader/Loader';
 import { useHistory } from 'react-router';
 import { authApi } from '../../api/auth';
 import jwt_decode from 'jwt-decode';
-import { useAppDispatch } from '../../hooks';
-import { setUserData, verifyUser } from '../../store/slices/user';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { reset, setUserData, verifyUser } from '../../store/slices/user';
 import { NavLink } from 'react-router-dom';
 
 type FormData = {
@@ -33,8 +33,8 @@ export const SignIn: React.FC = () => {
         try {
             setLoading(true);
             const res = await authApi.signIn(data);
-            console.log(res);
             localStorage.setItem('access_token', res.data.token);
+            dispatch(reset());
             dispatch(verifyUser());
             history.push('/');
         } catch (error) {
@@ -42,7 +42,10 @@ export const SignIn: React.FC = () => {
             setLoading(false);
         }
     };
-
+    const user = useAppSelector((state) => state.user.user);
+    if (user) {
+        history.push('/');
+    }
     return (
         <div style={{ margin: '0 auto' }}>
             <StepInfo title="Введите имя пользователя и пароль!" />

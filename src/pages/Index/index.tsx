@@ -29,6 +29,8 @@ export const Index: React.FC = () => {
     }, [user]);
     React.useEffect(() => {
         (async () => {
+            console.log(page, user);
+         
             if (user) {
                 dispatch(loadFollowingWall(user.id, page));
             }

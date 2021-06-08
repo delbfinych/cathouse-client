@@ -6,6 +6,8 @@ import { AvatarStep } from '../../components/steps/Avatar';
 import { End } from '../../components/steps/End';
 
 import { authApi } from '../../api/auth';
+import { useAppSelector } from '../../hooks';
+import { useHistory } from 'react-router';
 
 const steps = [Zero, First, Second, AvatarStep, End];
 interface IBody {
@@ -35,6 +37,12 @@ export const SignUp: React.FC = () => {
     const completeSteps = () => {
         return authApi.signUp(body.current);
     };
+
+    const history = useHistory();
+    const user = useAppSelector((state) => state.user.user);
+    if (user) {
+        history.push('/');
+    }
     return (
         <StepsContext.Provider
             value={{

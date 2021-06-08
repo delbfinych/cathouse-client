@@ -19,7 +19,7 @@ import './styles/globals.scss';
 function App() {
     const dispatch = useAppDispatch();
     const hst = useHistory();
-    const { failure, user } = useAppSelector((state) => state.user);
+    const { failure, loading } = useAppSelector((state) => state.user);
 
     React.useEffect(() => {
         dispatch(verifyUser());
@@ -31,7 +31,7 @@ function App() {
         }
     }, [failure]);
 
-    if (!user && !failure) {
+    if (loading && !failure) {
         return (
             <div
                 className="d-flex jc-center ai-center"
@@ -63,4 +63,3 @@ function App() {
 }
 
 export default App;
-

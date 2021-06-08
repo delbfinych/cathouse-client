@@ -3,15 +3,16 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AppThunk } from '..';
 import { IPost, postApi } from '../../api/post';
 
+const initialState = {
+    posts: [] as IPost[],
+    total_count: 0,
+    total_pages: 1,
+    failure: false,
+    loading: false,
+};
 export const userPostSlice = createSlice({
     name: 'userPosts',
-    initialState: {
-        posts: [] as IPost[],
-        total_count: 0,
-        total_pages: 1,
-        failure: false,
-        loading: false,
-    },
+    initialState,
     reducers: {
         setPosts: (
             state,
@@ -29,6 +30,8 @@ export const userPostSlice = createSlice({
         },
         reset: (state) => {
             state.posts = [];
+            state.total_count = 0;
+            state.total_pages = 1;
         },
         appendPost: (state, action: PayloadAction<IPost>) => {
             state.posts.unshift(action.payload);

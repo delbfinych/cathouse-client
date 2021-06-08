@@ -3,7 +3,7 @@ import React from 'react';
 import { useHistory } from 'react-router';
 import { postApi } from '../../api/post';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { addPost } from '../../store/slices/userPosts';
+import { reset } from '../../store/slices/user';
 import { Avatar } from '../Avatar';
 import { Button } from '../Button';
 import { Container } from '../Container';
@@ -25,6 +25,13 @@ export const Header: React.FC = () => {
         }
     };
     const [isOpen, setOpen] = React.useState(false);
+
+    const dispatch = useAppDispatch();
+    const logout = () => {
+        localStorage.removeItem('access_token');
+        dispatch(reset());
+        history.push('/signin');
+    };
     return (
         <div className={styles.header}>
             <Container className={styles.container}>
@@ -56,6 +63,13 @@ export const Header: React.FC = () => {
                                 }
                             />
                         </div>
+                        <Button
+                            onClick={logout}
+                            style={{ marginLeft: '10px' }}
+                            variant="blue"
+                        >
+                            Выйти
+                        </Button>
                     </div>
                 )}
             </Container>

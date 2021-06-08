@@ -29,6 +29,7 @@ export const Profile: React.FC = () => {
     const [page, setPage] = React.useState(1);
     React.useEffect(() => {
         (async () => {
+            setPage(1);
             dispatch(reset());
             const res = (await userApi.getById(parseInt(params.id))).data;
             setUser(res);

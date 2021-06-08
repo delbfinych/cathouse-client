@@ -35,11 +35,15 @@ export const AvatarStep: React.FC = () => {
     const handleSubmit = async () => {
         setLoading(true);
         const formData = new FormData();
+        const file = inputRef.current!.files![0];
+        if (file) formData.append('image', file);
         //@ts-ignore
-        formData.append("image", inputRef.current.files[0]);
         try {
-            const r = await mediaApi.upload(formData);
-            body.current.avatar_url = r.data[0];
+            if (file) {
+                const r = await mediaApi.upload(formData);
+                body.current.avatar_url = r.data[0];
+            }
+
             const res = await completeSteps();
             localStorage.setItem('access_token', res.data.token);
             onNextStep();

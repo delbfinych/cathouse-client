@@ -21,7 +21,21 @@ export const Zero: React.FC = () => {
                     padding: '40px 20px',
                 }}
             >
-                <h3 className={styles.text}>Добро пожаловать в CatHouse!</h3>
+                <div>
+                    <h3 className={styles.text}>
+                        Добро пожаловать в CatHouse!
+                    </h3>
+                    <h4 style={{ textAlign: 'center' }}>Тут можно:</h4>
+                    <ul style={{ textAlign: 'center' }}>
+                        <li>Создавать посты</li>
+                        <li>Писать комменты</li>
+                        <li>Лайкать посты и комменты </li>
+                        <li>
+                            Подписываться на людей и следить за их новостями
+                        </li>
+                        <li>Постить картинки пока нельзя</li>
+                    </ul>
+                </div>
 
                 <Button
                     type="submit"

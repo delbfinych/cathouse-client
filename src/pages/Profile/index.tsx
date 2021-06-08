@@ -169,8 +169,18 @@ const DescriptionEditor: React.FC = () => {
     const dispatch = useAppDispatch();
 
     React.useEffect(() => {
-        //@ts-ignore
-        if (inputRef.current) inputRef.current.innerText = user?.description;
+        if (inputRef.current) {
+            //@ts-ignore
+            inputRef.current.innerText = user?.description;
+            const sel = window.getSelection();
+            const range = document.createRange();
+            range.selectNodeContents(inputRef.current);
+            sel?.removeAllRanges();
+            sel?.addRange(range);
+            inputRef.current.scrollTop = inputRef.current.scrollHeight;
+            //@ts-ignore
+            
+        }
     }, [isOpen]);
     const Description: React.FC = () => {
         return (
@@ -233,7 +243,7 @@ const DescriptionEditor: React.FC = () => {
                 <div ref={ref}>
                     <MainBlock
                         style={{
-                            padding: '20px',
+                            padding: '15px',
                             width: '100%',
                         }}
                         className={styles.modalEdit}
@@ -253,15 +263,7 @@ const DescriptionEditor: React.FC = () => {
                             className={styles.btn}
                             variant="blue"
                         >
-                            {loading ? (
-                                <Loader
-                                    height="10px"
-                                    width="30px"
-                                    color="white"
-                                />
-                            ) : (
-                                'Сохранить'
-                            )}
+                            Сохранить
                         </Button>
                     </MainBlock>
                 </div>

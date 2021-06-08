@@ -202,10 +202,63 @@ const DescriptionEditor: React.FC = () => {
         setOpen(false);
         inputRef.current!.innerText = '';
     };
+    const ref = React.useRef(null);
+    React.useEffect(() => {
+        const handleClick = (event: any) => {
+            //@ts-ignore
+            if (!ref.current || ref.current.contains(event.target)) {
+                return;
+            }
+            setOpen(false);
+        };
+        document.addEventListener('mousedown', handleClick);
+        document.addEventListener('touchstart', handleClick);
+        return () => {
+            document.removeEventListener('mousedown', handleClick);
+            document.removeEventListener('touchstart', handleClick);
+        };
+    }, []);
     return (
         <div>
             <Description />
-            <Dialog isOpen={isOpen} onClose={() => setOpen(false)}>
+            {isOpen && (
+                <div ref={ref}>
+                    <MainBlock
+                        style={{
+                            padding: '20px',
+                           width:"100%"
+                        }}
+                        className={styles.modalEdit}
+                    >
+                        <div
+                            ref={inputRef}
+                            data-placeholder={
+                                user?.description ?? `Введите описание`
+                            }
+                            contentEditable="true"
+                            role="textbox"
+                            className={clsx(styles.postField)}
+                        ></div>
+
+                        <Button
+                            onClick={handleSumbit}
+                            className={styles.btn}
+                            variant="blue"
+                        >
+                            {loading ? (
+                                <Loader
+                                    height="10px"
+                                    width="30px"
+                                    color="white"
+                                />
+                            ) : (
+                                'Сохранить'
+                            )}
+                        </Button>
+                    </MainBlock>
+                </div>
+            )}
+            {/* <Dialog isOpen={isOpen} onClose={() => setOpen(false)}>
                 <MainBlock
                     style={{
                         padding: '20px',
@@ -235,7 +288,7 @@ const DescriptionEditor: React.FC = () => {
                         )}
                     </Button>
                 </MainBlock>
-            </Dialog>
+            </Dialog> */}
         </div>
     );
 };

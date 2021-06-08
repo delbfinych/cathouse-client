@@ -128,7 +128,7 @@ export const Profile: React.FC = () => {
                                 </Button>
                             )}
                         </div>
-                        <DescriptionEditor />
+                        {loggedUser?.id === user.id && <DescriptionEditor />}
                     </div>
                 </MainBlock>
                 {loggedUser?.id === user.id && (

@@ -1,4 +1,4 @@
-import { IUser } from './../../api/user';
+import { IUser, userApi, IUpdateUserData } from './../../api/user';
 import { authApi } from './../../api/auth';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AppThunk } from '..';
@@ -12,7 +12,7 @@ export const userSlice = createSlice({
     },
     reducers: {
         setUserData: (state, action: PayloadAction<IUser>) => {
-            state.user = action.payload;
+            state.user = { ...state.user, ...action.payload };
         },
         setFailure: (state, action) => {
             state.failure = action.payload;
@@ -36,7 +36,21 @@ export const verifyUser = (): AppThunk => async (dispatch) => {
         dispatch(setLoading(false));
     }
 };
-
+export const update =
+    (id: number, data: IUpdateUserData): AppThunk =>
+    async (dispatch) => {
+        try {
+            dispatch(setLoading(true));
+            await userApi.update(id, data);
+            const res = await userApi.getById(id);
+            dispatch(setUserData(res.data));
+            dispatch(setFailure(false));
+        } catch (err) {
+            dispatch(setFailure(true));
+        } finally {
+            dispatch(setLoading(false));
+        }
+    };
 export const { setUserData } = userSlice.actions;
 
 export default userSlice.reducer;

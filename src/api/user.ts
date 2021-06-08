@@ -11,13 +11,13 @@ export interface IUser {
     username: string;
     first_name: string;
     last_name: string;
-    avatar_url: string;
+    avatar_url?: string;
     createdAt: string;
     followers_count: number;
     following_count: number;
-    background_image_url: string;
+    background_image_url?: string;
     followed_by_me: number | null;
-    description: string;
+    description?: string;
     role: Roles;
 }
 const getById = (id: number) => http.get<IUser>(`/user/${id}`);
@@ -63,8 +63,17 @@ const getFolliwingPosts = (id: number, page: number) =>
 const getPosts = (id: number, page: number) =>
     http.get<IPaginationResponse<IPost>>(`user/${id}/posts?page=${page}`);
 
-const update = (id: number, data: object) =>
-    http.post(`user/${id}`, { ...data });
+export type IUpdateUserData = Pick<
+    IUser,
+    | 'avatar_url'
+    | 'background_image_url'
+    | 'first_name'
+    | 'last_name'
+    | 'description'
+    | 'username'
+>;
+const update = (id: number, data: IUpdateUserData) =>
+    http.post<IUpdateUserData>(`user/${id}`, { ...data });
 
 export const userApi = {
     getById,

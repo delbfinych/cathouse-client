@@ -26,6 +26,7 @@
 }
 .infoBlock {
     padding: 20px;
+    position: relative;
 }
 .name {
     font-weight: 700;
@@ -47,7 +48,7 @@
 .subscribeBtn {
     position: absolute;
     right: 1%;
-    top: 67%;
+    top: 10px;
 }
 .goto {
     position: absolute;
@@ -60,4 +61,36 @@
         min-width: 100% !important;
         display: block !important;
     }
+}
+
+.emptyDescription {
+    color: var(--color-gray);
+    cursor: pointer;
+}
+
+.description {
+    cursor: pointer;
+}
+
+.postField {
+    outline: none;
+    margin-bottom: 10px;
+}
+.postField[contentEditable='true']:not(:empty) {
+    & + .btn {
+        display: block;
+    }
+}
+.postField[contentEditable='true']:empty:not(:focus):before {
+    content: attr(data-placeholder);
+    color: var(--color-gray);
+    pointer-events: none;
+
+    & .btn {
+        display: none;
+    }
+}
+
+.btn {
+    margin-left: calc(100% - 80px);
 }

@@ -48,7 +48,6 @@ export const CreatePostForm: React.FC<IProps> = ({ onSubmit }) => {
                     contentEditable="true"
                     role="textbox"
                     className={clsx(styles.postField, styles.body)}
-                    placeholder="asd"
                 ></div>
                 <Button
                     onClick={handleSumbit}

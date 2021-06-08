@@ -185,7 +185,7 @@ const DescriptionEditor: React.FC = () => {
     };
     const handleSumbit = (e: any) => {
         e.preventDefault();
-        const text = inputRef.current?.innerText!;
+        const text = inputRef.current?.innerText!.trim();
         const params: IUpdateUserData = {
             avatar_url: user!.avatar_url,
             last_name: user!.last_name,

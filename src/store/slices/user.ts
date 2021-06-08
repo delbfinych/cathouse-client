@@ -43,7 +43,6 @@ export const update =
     (id: number, data: IUpdateUserData): AppThunk =>
     async (dispatch) => {
         try {
-            dispatch(setLoading(true));
             await userApi.update(id, data);
             const res = await userApi.getById(id);
             dispatch(setUserData(res.data));
@@ -51,7 +50,6 @@ export const update =
         } catch (err) {
             dispatch(setFailure(true));
         } finally {
-            dispatch(setLoading(false));
         }
     };
 export const { setUserData, reset } = userSlice.actions;

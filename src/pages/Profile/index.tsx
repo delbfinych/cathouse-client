@@ -164,7 +164,7 @@ export const Profile: React.FC = () => {
 };
 
 const DescriptionEditor: React.FC = () => {
-    const { loading, user } = useAppSelector((state) => state.user);
+    const {  user } = useAppSelector((state) => state.user);
     const [isOpen, setOpen] = React.useState(false);
     const dispatch = useAppDispatch();
 

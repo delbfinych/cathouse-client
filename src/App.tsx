@@ -22,7 +22,6 @@ function App() {
     const { failure, loading, user } = useAppSelector((state) => state.user);
 
     React.useEffect(() => {
-        console.log("ASD");
         dispatch(verifyUser());
     }, []);
 

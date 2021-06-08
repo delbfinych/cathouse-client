@@ -1,4 +1,3 @@
-import clsx from 'clsx';
 import React from 'react';
 import { useHistory } from 'react-router';
 import { postApi } from '../../api/post';

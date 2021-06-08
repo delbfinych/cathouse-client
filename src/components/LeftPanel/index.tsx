@@ -8,7 +8,6 @@ import { People } from './icons/People';
 
 import clsx from 'clsx';
 import { NewsFeed } from './icons/NewsFeed';
-import { Profile } from './icons/Profile';
 import { Settings } from './icons/Settings';
 import { useAppSelector } from '../../hooks';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router';
-import { TSimpleUser, userApi } from '../../api/user';
+import { TSimpleUser } from '../../api/user';
 import { UserList, UserListItem } from '../../components/UserList';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getFollowers, getFollowing } from '../../store/slices/people';
@@ -15,10 +15,6 @@ export const Right: React.FC = () => {
             if (user) {
                 dispatch(getFollowers(user!.id, 1));
                 dispatch(getFollowing(user!.id, 1));
-                // const flwng = await userApi.getFollowing(user!.id, 1);
-                // const flwrs = await userApi.getFollowers(user!.id, 1);
-                // setFollowing(flwng.data.result);
-                // setFollowers(flwrs.data.result);
             }
         })();
     }, [user]);

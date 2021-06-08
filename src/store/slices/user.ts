@@ -1,3 +1,4 @@
+import { appActions } from './app';
 import { IUser, userApi, IUpdateUserData } from './../../api/user';
 import { authApi } from './../../api/auth';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
@@ -37,6 +38,7 @@ export const verifyUser = (): AppThunk => async (dispatch) => {
         dispatch(setFailure(true));
     } finally {
         dispatch(setLoading(false));
+        dispatch(appActions.setLoading(false));
     }
 };
 export const update =

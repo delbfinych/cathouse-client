@@ -119,6 +119,5 @@ export const updatePost =
     };
 export const { reset } = userPostSlice.actions;
 
-// export const { setPosts } = userPostSlice.actions;
 
 export default userPostSlice.reducer;

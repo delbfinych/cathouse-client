@@ -1,6 +1,5 @@
 import React from 'react';
 import { useParams } from 'react-router';
-import { IComment } from '../../api/comment';
 import { IPost, postApi } from '../../api/post';
 import { CommentItem, CommentList } from '../../components/CommentList';
 import { CreateCommentForm } from '../../components/CreateForm/CreateCommentForm';

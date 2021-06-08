@@ -1,4 +1,4 @@
-import { IPaginationResponse, userApi } from '../../api/user';
+import { IPaginationResponse } from '../../api/user';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AppThunk } from '..';
 import { postApi } from '../../api/post';

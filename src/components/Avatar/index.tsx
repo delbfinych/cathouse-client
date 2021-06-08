@@ -27,8 +27,6 @@ export const Avatar: React.FC<IProps> = ({
         '#63AA55',
         '#DB863B',
     ];
-    const colorIdx = React.useRef(Math.floor(Math.random() * (colors.length - 1)));
-
 
     const style = {
         minWidth: width,

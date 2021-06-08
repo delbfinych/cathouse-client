@@ -1,12 +1,10 @@
 import clsx from 'clsx';
 import React from 'react';
 import { useHistory, useParams } from 'react-router';
-import { IPost, postApi } from '../../api/post';
-import { IUpdateUserData, IUser, userApi } from '../../api/user';
+import { IUser, userApi } from '../../api/user';
 import { Avatar } from '../../components/Avatar';
 import { Button } from '../../components/Button';
 import { CreatePostForm } from '../../components/CreateForm/CreatePostForm';
-import { Dialog } from '../../components/Dialog';
 import { AlertDialog } from '../../components/Dialog/AlertDialog';
 import { LeftPanel } from '../../components/LeftPanel';
 import { Loader } from '../../components/Loader/Loader';
@@ -15,9 +13,9 @@ import { Post } from '../../components/Post';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useThrottledLazyLoading } from '../../hooks/useThrottleLazyLoading';
 import { followUser, unfollowUser } from '../../store/slices/people';
-import { update } from '../../store/slices/user';
 import { addPost, loadUserWall, reset } from '../../store/slices/userPosts';
 import { Right } from '../Index/Right';
+import { DescriptionEditor } from './Editor';
 import styles from './Profile.module.scss';
 
 export const Profile: React.FC = () => {
@@ -29,7 +27,6 @@ export const Profile: React.FC = () => {
         (state) => state.posts
     );
     const [page, setPage] = React.useState(1);
-    // const [isFetching, setFetching] = React.useState(false);
     React.useEffect(() => {
         (async () => {
             dispatch(reset());
@@ -159,146 +156,6 @@ export const Profile: React.FC = () => {
                 onSubmit={toggleFollow}
                 message={`Уверены, что хотите отписаться от ${user.first_name} ${user.last_name}?`}
             />
-        </div>
-    );
-};
-
-const DescriptionEditor: React.FC = () => {
-    const {  user } = useAppSelector((state) => state.user);
-    const [isOpen, setOpen] = React.useState(false);
-    const dispatch = useAppDispatch();
-
-    React.useEffect(() => {
-        if (inputRef.current) {
-            //@ts-ignore
-            inputRef.current.innerText = user?.description;
-            const sel = window.getSelection();
-            const range = document.createRange();
-            range.selectNodeContents(inputRef.current);
-            sel?.removeAllRanges();
-            sel?.addRange(range);
-            inputRef.current.scrollTop = inputRef.current.scrollHeight;
-            //@ts-ignore
-            
-        }
-    }, [isOpen]);
-    const Description: React.FC = () => {
-        return (
-            <div
-                onClick={() => setOpen(true)}
-                className={clsx(
-                    styles.description,
-                    !user?.description && styles.emptyDescription,
-                    'cup',
-                    styles.discHover
-                )}
-            >
-                {user?.description ?? 'Изменить описание...'}
-            </div>
-        );
-    };
-    const handleSumbit = (e: any) => {
-        e.preventDefault();
-        const text = inputRef.current?.innerText!.trim();
-
-        const params: IUpdateUserData = {
-            avatar_url: user!.avatar_url,
-            last_name: user!.last_name,
-            first_name: user!.first_name,
-            background_image_url: user!.background_image_url,
-            username: user!.username,
-        };
-        if (text) {
-            params.description = text;
-        }
-        if (user) {
-            dispatch(update(user.id, params));
-        }
-        setOpen(false);
-        inputRef.current!.innerText = '';
-    };
-    const ref = React.useRef(null);
-    const inputRef = React.useRef<HTMLDivElement>(null);
-
-    React.useEffect(() => {
-        const handleClick = (event: any) => {
-            //@ts-ignore
-            if (!ref.current || ref.current.contains(event.target)) {
-                return;
-            }
-            setOpen(false);
-        };
-        document.addEventListener('mousedown', handleClick);
-        document.addEventListener('touchstart', handleClick);
-        return () => {
-            document.removeEventListener('mousedown', handleClick);
-            document.removeEventListener('touchstart', handleClick);
-        };
-    }, []);
-
-    return (
-        <div>
-            <Description />
-            {isOpen && (
-                <div ref={ref}>
-                    <MainBlock
-                        style={{
-                            padding: '15px',
-                            width: '100%',
-                        }}
-                        className={styles.modalEdit}
-                    >
-                        <div
-                            ref={inputRef}
-                            // data-placeholder={
-                            //     user?.description ?? `Введите описание`
-                            // }
-                            contentEditable="true"
-                            role="textbox"
-                            className={clsx(styles.postField)}
-                        ></div>
-
-                        <Button
-                            onClick={handleSumbit}
-                            className={styles.btn}
-                            variant="blue"
-                        >
-                            Сохранить
-                        </Button>
-                    </MainBlock>
-                </div>
-            )}
-            {/* <Dialog isOpen={isOpen} onClose={() => setOpen(false)}>
-                <MainBlock
-                    style={{
-                        padding: '20px',
-                        minWidth: '15vw',
-                        maxWidth: '15vw',
-                    }}
-                >
-                    <div
-                        ref={inputRef}
-                        data-placeholder={
-                            user?.description ?? `Введите описание`
-                        }
-                        contentEditable="true"
-                        role="textbox"
-                        className={clsx(styles.postField)}
-                    ></div>
-
-                    <Button
-                        onClick={handleSumbit}
-                        className={styles.btn}
-                        variant="blue"
-                    >
-                        {loading ? (
-                            <Loader height="10px" width="30px" color="white" />
-                        ) : (
-                            'Сохранить'
-                        )}
-                    </Button>
-                </MainBlock>
-            </Dialog> */}
         </div>
     );
 };

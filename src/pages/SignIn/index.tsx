@@ -5,13 +5,11 @@ import { StepInfo } from '../../components/steps/StepInfo';
 import { MainBlock } from '../../components/MainBlock';
 import { FormInput } from '../../components/FormInput';
 import { Button } from '../../components/Button';
-import axios from 'axios';
 import { Loader } from '../../components/Loader/Loader';
 import { useHistory } from 'react-router';
 import { authApi } from '../../api/auth';
-import jwt_decode from 'jwt-decode';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { reset, setUserData, verifyUser } from '../../store/slices/user';
+import { reset, verifyUser } from '../../store/slices/user';
 import { NavLink } from 'react-router-dom';
 
 type FormData = {

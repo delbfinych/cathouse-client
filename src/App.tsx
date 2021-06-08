@@ -10,8 +10,6 @@ import { PostPage } from './pages/PostPage';
 import { Profile } from './pages/Profile';
 import { Settings } from './pages/Settings';
 import { SignIn } from './pages/SignIn';
-// import { Button } from './components/Button';
-// import { MainBlock } from './components/MainBlock';
 import { SignUp } from './pages/SignUp';
 import { verifyUser } from './store/slices/user';
 import './styles/globals.scss';
@@ -19,8 +17,9 @@ import './styles/globals.scss';
 function App() {
     const dispatch = useAppDispatch();
     const hst = useHistory();
-    const { failure, loading, user } = useAppSelector((state) => state.user);
+    const { failure } = useAppSelector((state) => state.user);
 
+    const loading = useAppSelector((state) => state.app.isLoading);
     React.useEffect(() => {
         dispatch(verifyUser());
     }, []);
@@ -30,8 +29,8 @@ function App() {
             hst.push('/signin');
         }
     }, [failure]);
-
-    if (loading && !failure) {
+    
+    if (loading) {
         return (
             <div
                 className="d-flex jc-center ai-center"

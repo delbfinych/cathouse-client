@@ -4,7 +4,7 @@ import { useHistory } from 'react-router';
 import { commentApi, IComment } from '../../api/comment';
 import { IUser, userApi } from '../../api/user';
 import { useAppDispatch } from '../../hooks';
-import { updateComment } from '../../store/slices/comments';
+import { removeComment, updateComment } from '../../store/slices/comments';
 import { Avatar } from '../Avatar';
 import { DislikeButton } from '../Button/DislikeButton';
 import { LikeButton } from '../Button/LikeButton';
@@ -29,7 +29,6 @@ export const CommentItem: React.FC<IComment> = ({
     post_id,
     liked_by_me,
 }) => {
-    // const { user } = useAppSelector((state) => state.user);
     const [user, setUser] = React.useState<IUser | null>(null);
     React.useEffect(() => {
         (async () => {
@@ -73,12 +72,13 @@ export const CommentItem: React.FC<IComment> = ({
         }
     };
     const history = useHistory();
+    const deleteComment = () => dispatch(removeComment(comment_id));
     const gotoProfile = () => history.push(`/user/${user?.id}`);
     return (
         <li className={clsx('d-flex', styles.commentItem)}>
-            {/* {user?.role !== 'USER' && (
-                <span className={styles.closeBtn}>x</span>
-            )} */}
+            <span onClick={deleteComment} className={styles.closeBtn}>
+                x
+            </span>
             {user && (
                 <>
                     <Avatar

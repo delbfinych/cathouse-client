@@ -1,6 +1,5 @@
 import { IPaginationResponse } from './user';
 import { IComment } from './comment';
-// import useAxios from 'axios-hooks';
 import { http } from './http-client';
 
 export interface IPost {

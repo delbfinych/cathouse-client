@@ -26,7 +26,6 @@ export const People: React.FC = () => {
         })();
     }, [user]);
 
-    const [result, setResult] = React.useState([] as TSimpleUser[]);
 
     return (
         <div
@@ -41,7 +40,6 @@ export const People: React.FC = () => {
                     className={styles.tabs}
                 >
                     <Tab className={styles.tab} title="Подписчики">
-                        {/* <UsersSearchInput /> */}
                         {followers.length > 0 ? (
                             <List content={followers} />
                         ) : (
@@ -49,7 +47,6 @@ export const People: React.FC = () => {
                         )}
                     </Tab>
                     <Tab className={styles.tab} title="Подписки">
-                        {/* <UsersSearchInput /> */}
                         {following.length > 0 ? (
                             <List content={following} />
                         ) : (
@@ -72,18 +69,5 @@ const List: React.FC<{
                 <UserListItem {...user}></UserListItem>
             ))}
         </UserList>
-    );
-};
-
-interface IProps {
-    onChange?: (e: any) => void;
-}
-const UsersSearchInput: React.FC<IProps> = ({ onChange }) => {
-    return (
-        <FormInput
-            onChange={onChange}
-            className={styles.input}
-            placeholder="Найти пользователя..."
-        ></FormInput>
     );
 };

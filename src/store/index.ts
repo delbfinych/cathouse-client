@@ -3,6 +3,7 @@ import userReducer from './slices/user';
 import postsReducer from './slices/userPosts';
 import peopleReducer from './slices/people';
 import commentsReducer from './slices/comments';
+import appReducer from './slices/app';
 
 const store = configureStore({
     reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
         posts: postsReducer,
         people: peopleReducer,
         comments: commentsReducer,
+        app: appReducer,
     },
 });
 

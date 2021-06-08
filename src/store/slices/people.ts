@@ -2,7 +2,6 @@ import { TSimpleUser, IPaginationResponse } from './../../api/user';
 import { userApi } from '../../api/user';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AppThunk } from '..';
-import { postApi } from '../../api/post';
 
 export const peopleSlice = createSlice({
     name: 'people',

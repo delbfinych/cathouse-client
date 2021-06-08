@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React from 'react';
 import { useHistory } from 'react-router';
 import { IPost, postApi } from '../../api/post';
@@ -12,12 +11,8 @@ import { More } from '../More';
 import { ChatButton } from './ChatButton/';
 import styles from './Post.module.scss';
 import { removePost, updatePost } from '../../store/slices/userPosts';
-import { Dialog } from '../Dialog';
-import { Button } from '../Button';
 import { AlertDialog } from '../Dialog/AlertDialog';
-interface IProps {
-    id: number;
-}
+
 export const Post: React.FC<IPost> = (post) => {
     const [user, setUser] = React.useState<IUser | null>(null);
     const [islike, setlike] = React.useState(false);

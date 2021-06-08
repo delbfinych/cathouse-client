@@ -3,8 +3,6 @@ import { Post } from '../../components/Post';
 import { LeftPanel } from '../../components/LeftPanel';
 import { Right } from './Right';
 import { CreatePostForm } from '../../components/CreateForm/CreatePostForm';
-import { IPost } from '../../api/post';
-import { userApi } from '../../api/user';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import {
     addPost,
@@ -12,10 +10,8 @@ import {
     reset,
 } from '../../store/slices/userPosts';
 import { useThrottledLazyLoading } from '../../hooks/useThrottleLazyLoading';
-import clsx from 'clsx';
 import styles from './Styles.module.scss';
 import { Loader } from '../../components/Loader/Loader';
-import { useHistory } from 'react-router';
 
 export const Index: React.FC = () => {
     const dispatch = useAppDispatch();

@@ -166,17 +166,21 @@ export const Profile: React.FC = () => {
 const DescriptionEditor: React.FC = () => {
     const { loading, user } = useAppSelector((state) => state.user);
     const [isOpen, setOpen] = React.useState(false);
-    const inputRef = React.useRef<HTMLDivElement>(null);
     const dispatch = useAppDispatch();
 
+    React.useEffect(() => {
+        //@ts-ignore
+        if (inputRef.current) inputRef.current.innerText = user?.description;
+    }, [isOpen]);
     const Description: React.FC = () => {
         return (
             <div
                 onClick={() => setOpen(true)}
                 className={clsx(
-                    styles.descripion,
+                    styles.description,
                     !user?.description && styles.emptyDescription,
-                    'cup'
+                    'cup',
+                    styles.discHover
                 )}
             >
                 {user?.description ?? 'Изменить описание...'}
@@ -186,6 +190,7 @@ const DescriptionEditor: React.FC = () => {
     const handleSumbit = (e: any) => {
         e.preventDefault();
         const text = inputRef.current?.innerText!.trim();
+
         const params: IUpdateUserData = {
             avatar_url: user!.avatar_url,
             last_name: user!.last_name,
@@ -203,6 +208,8 @@ const DescriptionEditor: React.FC = () => {
         inputRef.current!.innerText = '';
     };
     const ref = React.useRef(null);
+    const inputRef = React.useRef<HTMLDivElement>(null);
+
     React.useEffect(() => {
         const handleClick = (event: any) => {
             //@ts-ignore
@@ -218,6 +225,7 @@ const DescriptionEditor: React.FC = () => {
             document.removeEventListener('touchstart', handleClick);
         };
     }, []);
+
     return (
         <div>
             <Description />
@@ -226,15 +234,15 @@ const DescriptionEditor: React.FC = () => {
                     <MainBlock
                         style={{
                             padding: '20px',
-                           width:"100%"
+                            width: '100%',
                         }}
                         className={styles.modalEdit}
                     >
                         <div
                             ref={inputRef}
-                            data-placeholder={
-                                user?.description ?? `Введите описание`
-                            }
+                            // data-placeholder={
+                            //     user?.description ?? `Введите описание`
+                            // }
                             contentEditable="true"
                             role="textbox"
                             className={clsx(styles.postField)}

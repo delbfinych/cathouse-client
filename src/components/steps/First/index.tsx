@@ -8,23 +8,22 @@ import { StepsContext } from '../../../pages/SignUp';
 import { useForm } from 'react-hook-form';
 import { authApi } from '../../../api/auth';
 
-type FormData = {
+type Data = {
     username: string;
     password: string;
 };
 
 export const First: React.FC = () => {
-    const { onNextStep, formData } = React.useContext(StepsContext);
+    const { onNextStep, body } = React.useContext(StepsContext);
     const {
         register,
         handleSubmit,
         formState: { errors },
-        trigger,
-    } = useForm<FormData>({ mode: 'onChange' });
+    } = useForm<Data>({ mode: 'onChange' });
 
-    const onSubmit = (data: FormData) => {
-        formData.current.append('username', data.username);
-        formData.current.append('password', data.password);
+    const onSubmit = (data: Data) => {
+        body.current.username = data.username;
+        body.current.password = data.password;
         onNextStep();
     };
 

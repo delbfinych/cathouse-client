@@ -1,4 +1,3 @@
-
 import { http } from './http-client';
 import { IUser } from './user';
 
@@ -10,12 +9,7 @@ const signIn = (data: object) =>
         ...data,
     });
 
-const signUp = (data: FormData) =>
-    http.post<IToken>('/auth/signup', data, {
-        headers: {
-            'Content-Type': 'multipart/form-data',
-        },
-    });
+const signUp = (data: object) => http.post<IToken>('/auth/signup', { ...data });
 
 const verifyUsername = (username: string) =>
     http.get(`/auth/verifyUserName?username=${username}`);

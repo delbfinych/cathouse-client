@@ -64,11 +64,3 @@ function App() {
 
 export default App;
 
-const WithHeader: React.FC = ({ children }) => {
-    return (
-        <>
-            <Header />
-            {children}
-        </>
-    );
-};

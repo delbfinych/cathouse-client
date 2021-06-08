@@ -8,9 +8,16 @@ import { End } from '../../components/steps/End';
 import { authApi } from '../../api/auth';
 
 const steps = [Zero, First, Second, AvatarStep, End];
+interface IBody {
+    username: string;
+    first_name: string;
+    last_name: string;
+    avatar_url: string;
+    password: string;
+}
 interface IContextProps {
     onNextStep: () => void;
-    formData: MutableRefObject<FormData>;
+    body: MutableRefObject<IBody>;
     completeSteps: () => ReturnType<typeof authApi.signUp>;
 }
 export const StepsContext = React.createContext<IContextProps>(
@@ -21,18 +28,18 @@ export const SignUp: React.FC = () => {
     const [step, setStep] = React.useState(0);
     const Step = steps[step];
 
-    const formData = React.useRef<FormData>(new FormData());
+    const body = React.useRef<IBody>({} as IBody);
 
     const onNextStep = () => setStep((step) => step + 1);
 
     const completeSteps = () => {
-        return authApi.signUp(formData.current);
+        return authApi.signUp(body.current);
     };
     return (
         <StepsContext.Provider
             value={{
                 onNextStep,
-                formData,
+                body,
                 completeSteps,
             }}
         >

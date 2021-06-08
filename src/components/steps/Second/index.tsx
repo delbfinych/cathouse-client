@@ -7,22 +7,22 @@ import { StepInfo } from '../StepInfo';
 import { StepsContext } from '../../../pages/SignUp';
 import { useForm } from 'react-hook-form';
 
-type FormData = {
+type IProps = {
     fullname: string;
 };
 export const Second: React.FC = () => {
-    const { onNextStep, formData } = React.useContext(StepsContext);
+    const { onNextStep, body } = React.useContext(StepsContext);
 
     const {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm<FormData>();
+    } = useForm<IProps>();
 
-    const onSubmit = ({ fullname }: FormData) => {
+    const onSubmit = ({ fullname }: IProps) => {
         const [first_name, last_name] = fullname.split(' ');
-        formData.current.append('first_name', first_name);
-        formData.current.append('last_name', last_name);
+        body.current.first_name = first_name;
+        body.current.last_name = last_name;
         onNextStep();
     };
     return (

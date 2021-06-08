@@ -47,7 +47,6 @@ export const Settings: React.FC = () => {
         const file = event?.target.files[0];
         console.log(12112);
         if (file) {
-            // formData.current.append('avatar_url', file);
             const imageUrl = URL.createObjectURL(file);
             setAvatarUrl(imageUrl);
         }

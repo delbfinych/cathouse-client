@@ -1,4 +1,5 @@
 import React from 'react';
+import { mediaApi } from '../../../api/media';
 import { StepsContext } from '../../../pages/SignUp';
 import { Avatar } from '../../Avatar';
 import { Button } from '../../Button';
@@ -8,18 +9,16 @@ import { StepInfo } from '../StepInfo';
 import styles from './Avatar.module.scss';
 
 export const AvatarStep: React.FC = () => {
-    const { formData, completeSteps, onNextStep } =
-        React.useContext(StepsContext);
+    const { body, completeSteps, onNextStep } = React.useContext(StepsContext);
     const inputRef = React.useRef<HTMLInputElement>(null);
     const [avatarUrl, setAvatarUrl] = React.useState('');
 
-    const first_name: string = formData.current.get('first_name') as string;
-    const last_name: string = formData.current.get('last_name') as string;
+    const first_name: string = body.current.first_name as string;
+    const last_name: string = body.current.last_name as string;
 
     const handleInputChange = (event: any) => {
         const file = event?.target.files[0];
         if (file) {
-            formData.current.append('avatar_url', file);
             const imageUrl = URL.createObjectURL(file);
             setAvatarUrl(imageUrl);
         }
@@ -35,7 +34,12 @@ export const AvatarStep: React.FC = () => {
     const [isLoading, setLoading] = React.useState(false);
     const handleSubmit = async () => {
         setLoading(true);
+        const formData = new FormData();
+        //@ts-ignore
+        formData.append("image", inputRef.current.files[0]);
         try {
+            const r = await mediaApi.upload(formData);
+            body.current.avatar_url = r.data[0];
             const res = await completeSteps();
             localStorage.setItem('access_token', res.data.token);
             onNextStep();

@@ -17,6 +17,7 @@ export interface IUser {
     following_count: number;
     background_image_url: string;
     followed_by_me: number | null;
+    description: string;
     role: Roles;
 }
 const getById = (id: number) => http.get<IUser>(`/user/${id}`);
@@ -62,12 +63,8 @@ const getFolliwingPosts = (id: number, page: number) =>
 const getPosts = (id: number, page: number) =>
     http.get<IPaginationResponse<IPost>>(`user/${id}/posts?page=${page}`);
 
-const update = (id: number, form: FormData) =>
-    http.post(`user/${id}`, form, {
-        headers: {
-            'Content-Type': 'multipart/form-data',
-        },
-    });
+const update = (id: number, data: object) =>
+    http.post(`user/${id}`, { ...data });
 
 export const userApi = {
     getById,

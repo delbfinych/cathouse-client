@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import React from 'react';
 import { useParams } from 'react-router';
 import { IPost, postApi } from '../../api/post';
@@ -7,7 +8,8 @@ import { LeftPanel } from '../../components/LeftPanel';
 import { Loader } from '../../components/Loader/Loader';
 import { Post } from '../../components/Post';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { loadComments, reset } from '../../store/slices/comments';
+import { loadComments, commentActions } from '../../store/slices/comments';
+import styles from './styles.module.scss';
 
 export const PostPage: React.FC = () => {
     const { id }: { id: string } = useParams();
@@ -21,7 +23,7 @@ export const PostPage: React.FC = () => {
     const [page, setPage] = React.useState(1);
     React.useEffect(() => {
         (async () => {
-            dispatch(reset());
+            dispatch(commentActions.reset());
             setPost((await postApi.getById(parseInt(id))).data);
         })();
     }, []);
@@ -41,10 +43,7 @@ export const PostPage: React.FC = () => {
             className="d-flex"
         >
             <LeftPanel></LeftPanel>
-            <div
-                style={{ maxWidth: '60vw', minWidth: '60vw' }}
-                className="d-flex flex-column"
-            >
+            <div className={clsx('d-flex flex-column', styles.body)}>
                 {post && <Post {...post} />}
                 {comments.length > 0 && (
                     <CommentList>

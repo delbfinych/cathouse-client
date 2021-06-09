@@ -17,6 +17,7 @@ export const Avatar: React.FC<IProps> = ({
     className,
     first_name,
     last_name,
+    children
 }) => {
     const colors = [
         '#4388B9',
@@ -47,7 +48,8 @@ export const Avatar: React.FC<IProps> = ({
                 <span className={styles.initials}>{`${
                     first_name?.[0].toUpperCase() || ''
                 }${last_name?.[0].toUpperCase() || ''}`}</span>
+                {children}
             </div>
         );
-    return <div style={style} className={clsx(styles.avatar, className)}></div>;
+    return <div style={style} className={clsx(styles.avatar, className)}>{children}</div>;
 };

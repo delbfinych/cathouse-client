@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router';
 import { postApi } from '../../api/post';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { reset } from '../../store/slices/user';
+import { userActions } from '../../store/slices/user';
 import { Avatar } from '../Avatar';
 import { Button } from '../Button';
 import { Container } from '../Container';
@@ -28,12 +28,12 @@ export const Header: React.FC = () => {
     const dispatch = useAppDispatch();
     const logout = () => {
         localStorage.removeItem('access_token');
-        dispatch(reset());
+        dispatch(userActions.reset());
         history.push('/signin');
     };
     return (
         <div className={styles.header}>
-            <Container className={styles.container}>
+            <div className={styles.container}>
                 <h3 className="cup" onClick={() => history.push('/')}>
                     CatHouse
                 </h3>
@@ -71,7 +71,7 @@ export const Header: React.FC = () => {
                         </Button>
                     </div>
                 )}
-            </Container>
+            </div>
             <Dialog
                 isOpen={isOpen}
                 onClose={() => {

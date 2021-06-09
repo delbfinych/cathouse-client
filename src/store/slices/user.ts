@@ -13,7 +13,7 @@ export const userSlice = createSlice({
     },
     reducers: {
         setUserData: (state, action: PayloadAction<IUser>) => {
-            state.user = { ...state.user, ...action.payload };
+            state.user = action.payload
         },
         setFailure: (state, action) => {
             state.failure = action.payload;
@@ -27,7 +27,7 @@ export const userSlice = createSlice({
     },
 });
 
-const { setFailure, setLoading } = userSlice.actions;
+const { setFailure, setLoading, setUserData, reset } = userSlice.actions;
 export const verifyUser = (): AppThunk => async (dispatch) => {
     try {
         dispatch(setLoading(true));
@@ -45,6 +45,7 @@ export const update =
     (id: number, data: IUpdateUserData): AppThunk =>
     async (dispatch) => {
         try {
+            dispatch(setLoading(true));
             await userApi.update(id, data);
             const res = await userApi.getById(id);
             dispatch(setUserData(res.data));
@@ -52,8 +53,10 @@ export const update =
         } catch (err) {
             dispatch(setFailure(true));
         } finally {
+            dispatch(setLoading(false));
         }
     };
-export const { setUserData, reset } = userSlice.actions;
+
+export const userActions = userSlice.actions;
 
 export default userSlice.reducer;

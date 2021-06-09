@@ -9,7 +9,7 @@ import { Loader } from '../../components/Loader/Loader';
 import { useHistory } from 'react-router';
 import { authApi } from '../../api/auth';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { reset, verifyUser } from '../../store/slices/user';
+import { userActions, verifyUser } from '../../store/slices/user';
 import { NavLink } from 'react-router-dom';
 
 type FormData = {
@@ -32,7 +32,7 @@ export const SignIn: React.FC = () => {
             setLoading(true);
             const res = await authApi.signIn(data);
             localStorage.setItem('access_token', res.data.token);
-            dispatch(reset());
+            dispatch(userActions.reset());
             dispatch(verifyUser());
             history.push('/');
         } catch (error) {

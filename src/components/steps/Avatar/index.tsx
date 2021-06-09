@@ -79,7 +79,13 @@ export const AvatarStep: React.FC = () => {
                         Выберите фото
                     </label>
                 </div>
-                <input ref={inputRef} id="image" type="file" hidden />
+                <input
+                    className="hidden"
+                    ref={inputRef}
+                    id="image"
+                    type="file"
+                    hidden
+                />
                 <Button
                     disabled={isLoading}
                     onClick={handleSubmit}

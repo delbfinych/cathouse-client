@@ -117,7 +117,7 @@ export const updatePost =
             throw error;
         }
     };
-export const { reset } = userPostSlice.actions;
 
+export const userPostActions = userPostSlice.actions;
 
 export default userPostSlice.reducer;

@@ -20,11 +20,8 @@
     height: 30px;
 }
 
-.userInfo {
-    margin: 0 10px;
-    @media screen and (max-width: 620px) {
-        margin: 0;
-    }
+.avatar {
+    margin-right: 10px;
 }
 
 .userName {

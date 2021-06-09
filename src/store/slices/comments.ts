@@ -106,6 +106,7 @@ export const updateComment =
             throw error;
         }
     };
-export const { reset } = commentsSlice.actions;
+
+export const commentActions = commentsSlice.actions;
 
 export default commentsSlice.reducer;

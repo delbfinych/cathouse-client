@@ -9,6 +9,8 @@ interface IProps {
     type?: string;
     error?: boolean;
     value?: string;
+    name: string;
+    ref: any;
 }
 export const FormInput: React.FC<
     IProps & React.InputHTMLAttributes<HTMLInputElement>
@@ -20,17 +22,20 @@ export const FormInput: React.FC<
     type,
     value,
     error = false,
+    ref,
+    name,
     ...props
 }) => {
     return (
         <div className={clsx(className, styles.group)}>
             <input
+                name={name}
                 {...props}
                 placeholder={' '}
                 onChange={onChange}
                 className={clsx(styles.input, error && styles.error)}
                 type={type}
-                value={value}
+                ref={ref}
             />
             <label className={styles.label}>{placeholder}</label>
         </div>

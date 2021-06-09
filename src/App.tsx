@@ -52,9 +52,9 @@ function App() {
                     <Route exact path="/post/:id" component={PostPage} />
                     <Route exact path="/user/:id" component={Profile} />
                     <Route exact path="/user/:id/people" component={People} />
+                    <Route exact path="/settings/" component={Settings} />
+                    
                     <Route render={() => <h4>404 not found</h4>} />
-
-                    {/* <Route exact path="/settings/" component={Settings} /> */}
                 </Switch>
             </Container>
         </div>

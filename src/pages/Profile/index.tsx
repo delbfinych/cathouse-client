@@ -13,7 +13,7 @@ import { Post } from '../../components/Post';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useThrottledLazyLoading } from '../../hooks/useThrottleLazyLoading';
 import { followUser, unfollowUser } from '../../store/slices/people';
-import { addPost, loadUserWall, reset } from '../../store/slices/userPosts';
+import { addPost, loadUserWall, userPostActions } from '../../store/slices/userPosts';
 import { Right } from '../Index/Right';
 import { DescriptionEditor } from './Editor';
 import styles from './Profile.module.scss';
@@ -30,7 +30,7 @@ export const Profile: React.FC = () => {
     React.useEffect(() => {
         (async () => {
             setPage(1);
-            dispatch(reset());
+            dispatch(userPostActions.reset());
             const res = (await userApi.getById(parseInt(params.id))).data;
             setUser(res);
             setFollowed(Boolean(res.followed_by_me));

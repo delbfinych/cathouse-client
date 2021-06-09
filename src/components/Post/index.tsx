@@ -81,6 +81,7 @@ export const Post: React.FC<IPost> = (post) => {
                     <div className={styles.post}>
                         <div className={styles.header}>
                             <Avatar
+                                className={styles.avatar}
                                 height="40px"
                                 width="40px"
                                 first_name={user.first_name}

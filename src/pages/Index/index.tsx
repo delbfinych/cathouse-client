@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import {
     addPost,
     loadFollowingWall,
-    reset,
+    userPostActions,
 } from '../../store/slices/userPosts';
 import { useThrottledLazyLoading } from '../../hooks/useThrottleLazyLoading';
 import styles from './Styles.module.scss';
@@ -22,7 +22,7 @@ export const Index: React.FC = () => {
     );
     const [page, setPage] = React.useState(1);
     React.useEffect(() => {
-        dispatch(reset());
+        dispatch(userPostActions.reset());
     }, [user]);
     React.useEffect(() => {
         (async () => {
@@ -31,7 +31,6 @@ export const Index: React.FC = () => {
             }
         })();
     }, [user, page]);
-
 
     const handleSubmit = async (text: string) => {
         dispatch(addPost(text));

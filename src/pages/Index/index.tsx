@@ -12,11 +12,13 @@ import {
 import { useThrottledLazyLoading } from '../../hooks/useThrottleLazyLoading';
 import styles from './Styles.module.scss';
 import { Loader } from '../../components/Loader/Loader';
+import ContentLoader from 'react-content-loader';
+import { MainBlock } from '../../components/MainBlock';
+import { PostLoader } from '../../components/Loader/PostLoader';
 
 export const Index: React.FC = () => {
     const dispatch = useAppDispatch();
     const user = useAppSelector((state) => state.user.user);
-    console.log(user);
     const { posts, total_pages, loading } = useAppSelector(
         (state) => state.posts
     );
@@ -42,10 +44,14 @@ export const Index: React.FC = () => {
             <LeftPanel></LeftPanel>
             <div className={styles.middle}>
                 <CreatePostForm onSubmit={handleSubmit} />
-                {posts.map((post) => (
-                    <Post key={post.post_id} {...post}></Post>
-                ))}
-                {loading && (
+                {posts.length
+                    ? posts.map((post) => (
+                          <Post key={post.post_id} {...post}></Post>
+                      ))
+                    : Array(5)
+                          .fill(0)
+                          .map((el) => <PostLoader className={styles.postLoaderItem} />)}
+                {loading && page > 1 && (
                     <div className="d-flex jc-center">
                         <Loader color="blue" height="50px" width="50px" />
                     </div>
@@ -55,3 +61,5 @@ export const Index: React.FC = () => {
         </div>
     );
 };
+
+

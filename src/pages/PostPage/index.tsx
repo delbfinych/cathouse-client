@@ -6,6 +6,7 @@ import { CommentItem, CommentList } from '../../components/CommentList';
 import { CreateCommentForm } from '../../components/CreateForm/CreateCommentForm';
 import { LeftPanel } from '../../components/LeftPanel';
 import { Loader } from '../../components/Loader/Loader';
+import { PostLoader } from '../../components/Loader/PostLoader';
 import { Post } from '../../components/Post';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { loadComments, commentActions } from '../../store/slices/comments';
@@ -44,7 +45,7 @@ export const PostPage: React.FC = () => {
         >
             <LeftPanel></LeftPanel>
             <div className={clsx('d-flex flex-column', styles.body)}>
-                {post && <Post {...post} />}
+                {post ? <Post {...post} /> : <PostLoader />}
                 {comments.length > 0 && (
                     <CommentList>
                         {comments.map((comment, idx) => (

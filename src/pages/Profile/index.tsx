@@ -8,12 +8,17 @@ import { CreatePostForm } from '../../components/CreateForm/CreatePostForm';
 import { AlertDialog } from '../../components/Dialog/AlertDialog';
 import { LeftPanel } from '../../components/LeftPanel';
 import { Loader } from '../../components/Loader/Loader';
+import { PostLoader } from '../../components/Loader/PostLoader';
 import { MainBlock } from '../../components/MainBlock';
 import { Post } from '../../components/Post';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useThrottledLazyLoading } from '../../hooks/useThrottleLazyLoading';
 import { followUser, unfollowUser } from '../../store/slices/people';
-import { addPost, loadUserWall, userPostActions } from '../../store/slices/userPosts';
+import {
+    addPost,
+    loadUserWall,
+    userPostActions,
+} from '../../store/slices/userPosts';
 import { Right } from '../Index/Right';
 import { DescriptionEditor } from './Editor';
 import styles from './Profile.module.scss';
@@ -139,10 +144,15 @@ export const Profile: React.FC = () => {
                     <CreatePostForm onSubmit={handleSubmit} />
                 )}
                 {!posts.length && !loading && <div>Пока шо тут пусто...</div>}
-                {posts &&
-                    posts.map((post) => (
-                        <Post key={post.post_id} {...post}></Post>
-                    ))}
+                {posts.length
+                    ? posts.map((post) => (
+                          <Post key={post.post_id} {...post}></Post>
+                      ))
+                    : Array(5)
+                          .fill(0)
+                          .map((el) => (
+                              <PostLoader className={styles.postLoaderItem} />
+                          ))}
                 {loading && (
                     <div className="d-flex jc-center">
                         <Loader color="blue" height="50px" width="50px" />

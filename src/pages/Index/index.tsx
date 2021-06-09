@@ -44,13 +44,17 @@ export const Index: React.FC = () => {
             <LeftPanel></LeftPanel>
             <div className={styles.middle}>
                 <CreatePostForm onSubmit={handleSubmit} />
-                {posts.length
-                    ? posts.map((post) => (
-                          <Post key={post.post_id} {...post}></Post>
-                      ))
-                    : Array(5)
-                          .fill(0)
-                          .map((el) => <PostLoader className={styles.postLoaderItem} />)}
+                {loading &&
+                    !posts.length &&
+                    Array(5)
+                        .fill(0)
+                        .map((el) => (
+                            <PostLoader className={styles.postLoaderItem} />
+                        ))}
+                {posts &&
+                    posts.map((post) => (
+                        <Post key={post.post_id} {...post}></Post>
+                    ))}
                 {loading && page > 1 && (
                     <div className="d-flex jc-center">
                         <Loader color="blue" height="50px" width="50px" />
@@ -61,5 +65,3 @@ export const Index: React.FC = () => {
         </div>
     );
 };
-
-

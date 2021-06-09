@@ -144,16 +144,17 @@ export const Profile: React.FC = () => {
                     <CreatePostForm onSubmit={handleSubmit} />
                 )}
                 {!posts.length && !loading && <div>Пока шо тут пусто...</div>}
-                {posts.length
-                    ? posts.map((post) => (
-                          <Post key={post.post_id} {...post}></Post>
-                      ))
-                    : Array(5)
-                          .fill(0)
-                          .map((el) => (
-                              <PostLoader className={styles.postLoaderItem} />
-                          ))}
-                {loading && (
+                {loading && !posts.length &&
+                    Array(5)
+                        .fill(0)
+                        .map((el) => (
+                            <PostLoader className={styles.postLoaderItem} />
+                        ))}
+                {posts &&
+                    posts.map((post) => (
+                        <Post key={post.post_id} {...post}></Post>
+                    ))}
+                {loading && page > 1 && (
                     <div className="d-flex jc-center">
                         <Loader color="blue" height="50px" width="50px" />
                     </div>

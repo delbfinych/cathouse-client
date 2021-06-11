@@ -28,12 +28,12 @@ export const CommentItem: React.FC<IComment> = ({
     likes_count,
     post_id,
     liked_by_me,
+    author_avatar_url,
+    author_first_name,
+    author_last_name,
 }) => {
-    const [user, setUser] = React.useState<IUser | null>(null);
     React.useEffect(() => {
         (async () => {
-            const data = await userApi.getById(author_id);
-            setUser(data.data);
             if (liked_by_me) {
                 setlike(true);
             } else if (typeof liked_by_me != 'object') {
@@ -73,61 +73,54 @@ export const CommentItem: React.FC<IComment> = ({
     };
     const history = useHistory();
     const deleteComment = () => dispatch(removeComment(comment_id));
-    const gotoProfile = () => history.push(`/user/${user?.id}`);
+    const gotoProfile = () => history.push(`/user/${author_id}`);
     return (
         <li className={clsx('d-flex', styles.commentItem)}>
             <span onClick={deleteComment} className={styles.closeBtn}>
                 x
             </span>
-            {user && (
-                <>
-                    <Avatar
-                        src={
-                            user.avatar_url &&
-                            process.env.REACT_APP_MEDIA_URL + user.avatar_url
-                        }
-                        className={styles.avatar}
-                        height="40px"
-                        width="40px"
-                        first_name={user.first_name}
-                        last_name={user.last_name}
-                    />
-                    <div>
-                        <div
-                            onClick={gotoProfile}
-                            className={clsx(styles.name, 'cup')}
-                        >
-                            {user.first_name} {user.last_name}
-                        </div>
-                        <div className={styles.body}>{body}</div>
-                        <div
-                            className={clsx(
-                                styles.likesPanel,
-                                (likes_count > 0 || dislikes_count > 0) &&
-                                    styles.dontHide
-                            )}
-                        >
-                            <DislikeButton
-                                onClick={markAsDisLiked}
-                                active={isDislike}
-                                width="18px"
-                                height="18px"
-                            ></DislikeButton>
-                            <div>{dislikes_count}</div>
-                            <LikeButton
-                                onClick={markAsLiked}
-                                active={islike}
-                                width="18px"
-                                height="18px"
-                            ></LikeButton>
-                            <div>{likes_count}</div>
-                        </div>
-                        <div className={styles.date}>
-                            {new Date(createdAt || ' ').toLocaleString()}
-                        </div>
-                    </div>
-                </>
-            )}
+            <Avatar
+                src={
+                    author_avatar_url &&
+                    process.env.REACT_APP_MEDIA_URL + author_avatar_url
+                }
+                className={styles.avatar}
+                height="40px"
+                width="40px"
+                first_name={author_first_name}
+                last_name={author_last_name}
+            />
+            <div>
+                <div onClick={gotoProfile} className={clsx(styles.name, 'cup')}>
+                    {author_first_name} {author_last_name}
+                </div>
+                <div className={styles.body}>{body}</div>
+                <div
+                    className={clsx(
+                        styles.likesPanel,
+                        (likes_count > 0 || dislikes_count > 0) &&
+                            styles.dontHide
+                    )}
+                >
+                    <DislikeButton
+                        onClick={markAsDisLiked}
+                        active={isDislike}
+                        width="18px"
+                        height="18px"
+                    ></DislikeButton>
+                    <div>{dislikes_count}</div>
+                    <LikeButton
+                        onClick={markAsLiked}
+                        active={islike}
+                        width="18px"
+                        height="18px"
+                    ></LikeButton>
+                    <div>{likes_count}</div>
+                </div>
+                <div className={styles.date}>
+                    {new Date(createdAt || ' ').toLocaleString()}
+                </div>
+            </div>
         </li>
     );
 };

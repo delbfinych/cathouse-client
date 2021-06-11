@@ -10,6 +10,9 @@ export interface IComment {
     likes_count: number;
     dislikes_count: number;
     liked_by_me: number | null;
+    author_first_name: string;
+    author_last_name: string;
+    author_avatar_url: string;
 }
 const getById = (id: number) => http.get<IComment>(`/comment/${id}`);
 

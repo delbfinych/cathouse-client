@@ -12,6 +12,9 @@ export interface IPost {
     dislikes_count: number;
     liked_by_me: number | null;
     comments_count: number;
+    author_last_name: string;
+    author_first_name: string;
+    author_avatar_url: string;
 }
 const create = (data: { message: string }) => http.post<IPost>(`/post`, data);
 
@@ -27,7 +30,9 @@ const update = (id: number, data: { message: string }) =>
     http.post<IPost>(`/post/${id}`, data);
 
 const getCommenets = (id: number, page: number) =>
-    http.get<IPaginationResponse<IComment>>(`/post/${id}/comments?page=${page}`);
+    http.get<IPaginationResponse<IComment>>(
+        `/post/${id}/comments?page=${page}`
+    );
 
 const addComment = (id: number, data: { message: string }) =>
     http.post<IComment>(`/post/${id}/comments`, data);

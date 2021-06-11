@@ -13,19 +13,28 @@ import styles from './Post.module.scss';
 import { removePost, updatePost } from '../../store/slices/userPosts';
 import { AlertDialog } from '../Dialog/AlertDialog';
 
-export const Post: React.FC<IPost> = (post) => {
-    const [user, setUser] = React.useState<IUser | null>(null);
+export const Post: React.FC<IPost> = ({
+    author_avatar_url,
+    author_first_name,
+    author_id,
+    author_last_name,
+    body,
+    comments_count,
+    createdAt,
+    dislikes_count,
+    liked_by_me,
+    likes_count,
+    post_id,
+}) => {
     const [islike, setlike] = React.useState(false);
     const [isDislike, setDislike] = React.useState(false);
 
     const history = useHistory();
     React.useEffect(() => {
         (async () => {
-            const u = await userApi.getById(post.author_id);
-            setUser(u.data);
-            if (post.liked_by_me) {
+            if (liked_by_me) {
                 setlike(true);
-            } else if (typeof post.liked_by_me != 'object') {
+            } else if (typeof liked_by_me != 'object') {
                 setDislike(true);
             }
         })();
@@ -34,8 +43,8 @@ export const Post: React.FC<IPost> = (post) => {
     const markAsLiked = async () => {
         setlike((prev) => !prev);
         try {
-            await postApi.like(post.post_id);
-            dispatch(updatePost(post.post_id));
+            await postApi.like(post_id);
+            dispatch(updatePost(post_id));
             if (isDislike) {
                 setDislike(false);
             }
@@ -47,8 +56,8 @@ export const Post: React.FC<IPost> = (post) => {
         setDislike((prev) => !prev);
 
         try {
-            await postApi.dislike(post.post_id);
-            dispatch(updatePost(post.post_id));
+            await postApi.dislike(post_id);
+            dispatch(updatePost(post_id));
             if (islike) {
                 setlike(false);
             }
@@ -60,14 +69,11 @@ export const Post: React.FC<IPost> = (post) => {
     const dispatch = useAppDispatch();
 
     const deletePost = () => {
-        dispatch(removePost(post.post_id));
+        dispatch(removePost(post_id));
     };
-    const gotoDiscussion = () => history.push(`/post/${post.post_id}`);
-    const gotoProfile = () => history.push(`/user/${user?.id}`);
+    const gotoDiscussion = () => history.push(`/post/${post_id}`);
+    const gotoProfile = () => history.push(`/user/${author_id}`);
     const [isDialogOpen, setOpen] = React.useState(false);
-    if (!post) {
-        return <div>Пост не найден :(</div>;
-    }
 
     return (
         <div>
@@ -77,65 +83,58 @@ export const Post: React.FC<IPost> = (post) => {
                     marginBottom: '20px',
                 }}
             >
-                {user && (
-                    <div className={styles.post}>
-                        <div className={styles.header}>
-                            <Avatar
-                                className={styles.avatar}
-                                height="40px"
-                                width="40px"
-                                first_name={user.first_name}
-                                last_name={user.last_name}
-                                src={
-                                    user.avatar_url &&
-                                    process.env.REACT_APP_MEDIA_URL +
-                                        user.avatar_url
-                                }
-                            ></Avatar>
-                            <div
-                                onClick={gotoProfile}
-                                className={styles.userInfo}
-                            >
-                                <div className={styles.userName}>
-                                    {user.first_name} {user.last_name}
-                                </div>
-                                <div className={styles.publishDate}>
-                                    {new Date(
-                                        post.createdAt || ' '
-                                    ).toLocaleString()}
-                                </div>
+                <div className={styles.post}>
+                    <div className={styles.header}>
+                        <Avatar
+                            className={styles.avatar}
+                            height="40px"
+                            width="40px"
+                            first_name={author_first_name}
+                            last_name={author_last_name}
+                            src={
+                                author_avatar_url &&
+                                process.env.REACT_APP_MEDIA_URL +
+                                    author_avatar_url
+                            }
+                        ></Avatar>
+                        <div onClick={gotoProfile} className={styles.userInfo}>
+                            <div className={styles.userName}>
+                                {author_first_name} {author_last_name}
                             </div>
-                            <More className={styles.options}>
-                                <li onClick={() => setOpen(true)}>Удалить</li>
-                            </More>
+                            <div className={styles.publishDate}>
+                                {new Date(createdAt || ' ').toLocaleString()}
+                            </div>
                         </div>
-                        <div className={styles.body}>{post.body}</div>
-                        <div className={styles.footer}>
-                            <div className={styles.likes}>
-                                <LikeButton
-                                    onClick={markAsLiked}
-                                    active={islike}
-                                    width="22px"
-                                    height="22px"
-                                ></LikeButton>
-                                <div>{post.likes_count}</div>
-                                <DislikeButton
-                                    onClick={markAsDisLiked}
-                                    active={isDislike}
-                                    width="22px"
-                                    height="22px"
-                                ></DislikeButton>
-                                <div>{post.dislikes_count}</div>
-                                <ChatButton
-                                    onClick={gotoDiscussion}
-                                    width="22px"
-                                    height="22px"
-                                ></ChatButton>
-                                <div>{post.comments_count}</div>
-                            </div>
+                        <More className={styles.options}>
+                            <li onClick={() => setOpen(true)}>Удалить</li>
+                        </More>
+                    </div>
+                    <div className={styles.body}>{body}</div>
+                    <div className={styles.footer}>
+                        <div className={styles.likes}>
+                            <LikeButton
+                                onClick={markAsLiked}
+                                active={islike}
+                                width="22px"
+                                height="22px"
+                            ></LikeButton>
+                            <div>{likes_count}</div>
+                            <DislikeButton
+                                onClick={markAsDisLiked}
+                                active={isDislike}
+                                width="22px"
+                                height="22px"
+                            ></DislikeButton>
+                            <div>{dislikes_count}</div>
+                            <ChatButton
+                                onClick={gotoDiscussion}
+                                width="22px"
+                                height="22px"
+                            ></ChatButton>
+                            <div>{comments_count}</div>
                         </div>
                     </div>
-                )}
+                </div>
             </MainBlock>
             <AlertDialog
                 isOpen={isDialogOpen}

@@ -15,6 +15,7 @@ export interface IPost {
     author_last_name: string;
     author_first_name: string;
     author_avatar_url: string;
+    attachments: string[]
 }
 const create = (data: { message: string }) => http.post<IPost>(`/post`, data);
 

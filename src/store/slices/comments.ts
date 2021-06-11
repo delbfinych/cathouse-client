@@ -75,6 +75,7 @@ export const addComment =
             dispatch(setLoading(true));
             const res = await postApi.addComment(id, { message: text });
             dispatch(append(res.data));
+         
             dispatch(setFailure(false));
         } catch (err) {
             dispatch(setFailure(true));

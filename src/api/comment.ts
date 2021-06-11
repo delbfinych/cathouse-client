@@ -13,6 +13,7 @@ export interface IComment {
     author_first_name: string;
     author_last_name: string;
     author_avatar_url: string;
+    attachments: string[]
 }
 const getById = (id: number) => http.get<IComment>(`/comment/${id}`);
 

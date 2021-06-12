@@ -27,6 +27,7 @@ export const Post: React.FC<IPost> = ({
     dislikes_count,
     liked_by_me,
     likes_count,
+    attachments,
     post_id,
 }) => {
     const [islike, setlike] = React.useState(false);
@@ -78,11 +79,7 @@ export const Post: React.FC<IPost> = ({
     const gotoProfile = () => history.push(`/user/${author_id}`);
     const [isDialogOpen, setOpen] = React.useState(false);
     const [sliderIdx, setSliderIdx] = React.useState(1);
-    const images = [
-        process.env.REACT_APP_MEDIA_URL + author_avatar_url,
-        'http://placekitten.com/g/400/200',
-        'http://placekitten.com/g/400/200',
-    ];
+
     const settings = {
         infinite: false,
         dots: true,
@@ -129,7 +126,7 @@ export const Post: React.FC<IPost> = ({
                     <div className={styles.body}>{body}</div>
                     <div className={styles.attachments}>
                         <Slider {...settings}>
-                            {images.map((img) => (
+                            {attachments.map((img) => (
                                 <div>
                                     <img src={img} alt="" />
                                 </div>

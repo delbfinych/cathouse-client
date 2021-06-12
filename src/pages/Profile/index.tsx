@@ -31,22 +31,29 @@ export const Profile: React.FC = () => {
     const { posts, loading, total_pages } = useAppSelector(
         (state) => state.posts
     );
-    const [page, setPage] = React.useState(1);
+    const [page, setPage] = React.useState(0);
     React.useEffect(() => {
         (async () => {
-            setPage(1);
             dispatch(userPostActions.reset());
+            if (page === 1) {
+                dispatch(loadUserWall(parseInt(params.id), page));
+            } else {
+                setPage(1);
+            }
             const res = (await userApi.getById(parseInt(params.id))).data;
             setUser(res);
             setFollowed(Boolean(res.followed_by_me));
+            console.log(page);
         })();
     }, [params.id]);
 
     React.useEffect(() => {
         (async () => {
-            dispatch(loadUserWall(parseInt(params.id), page));
+            if (page) {
+                dispatch(loadUserWall(parseInt(params.id), page));
+            }
         })();
-    }, [page, params.id]);
+    }, [page]);
 
     useThrottledLazyLoading(page, total_pages, setPage, 1000);
 
@@ -144,7 +151,8 @@ export const Profile: React.FC = () => {
                     <CreatePostForm onSubmit={handleSubmit} />
                 )}
                 {!posts.length && !loading && <div>Пока шо тут пусто...</div>}
-                {loading && !posts.length &&
+                {loading &&
+                    !posts.length &&
                     Array(5)
                         .fill(0)
                         .map((el) => (

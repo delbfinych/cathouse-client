@@ -51,3 +51,42 @@
         font-size: 1.05rem;
     }
 }
+
+.attachments {
+    position: relative;
+    & div {
+        outline: none;
+    }
+    height: auto;
+    & img {
+        margin: auto;
+        border-radius: var(--border-radius);
+        height: auto;
+        width: 100%;
+    }
+
+    & ul li {
+        width: 10px;
+        height: 10px;
+    }
+}
+
+.sliderPaging {
+    width: 48px;
+    height: 48px;
+    margin-right: 20px;
+    & img {
+        height: 100%;
+        width: 100%;
+    }
+}
+
+.slidesCounter {
+    position: absolute;
+    top:0;
+    right: 0;
+    z-index: 1000;
+    color: white;
+    background-color: black;
+    border-radius: var(--border-radius);
+}

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Switch, useHistory } from 'react-router';
+import Slider from 'react-slick';
 import { Container } from './components/Container';
 import { Header } from './components/Header';
 import { Loader } from './components/Loader/Loader';

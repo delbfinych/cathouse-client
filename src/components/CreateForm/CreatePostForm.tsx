@@ -67,11 +67,7 @@ export const CreatePostForm: React.FC<IProps> = ({ onSubmit }) => {
                 >
                     <Smile size="22px" />
                 </div> */}
-                {/* {isEmojiPicking && (
-                    <div className={styles.emoji}>
-                        <Picker set="apple" />
-                    </div>
-                )} */}
+              
             </form>
         </MainBlock>
     );

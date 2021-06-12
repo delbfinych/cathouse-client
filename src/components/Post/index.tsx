@@ -12,6 +12,9 @@ import { ChatButton } from './ChatButton/';
 import styles from './Post.module.scss';
 import { removePost, updatePost } from '../../store/slices/userPosts';
 import { AlertDialog } from '../Dialog/AlertDialog';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick-theme.css';
+import 'slick-carousel/slick/slick.css';
 
 export const Post: React.FC<IPost> = ({
     author_avatar_url,
@@ -74,7 +77,21 @@ export const Post: React.FC<IPost> = ({
     const gotoDiscussion = () => history.push(`/post/${post_id}`);
     const gotoProfile = () => history.push(`/user/${author_id}`);
     const [isDialogOpen, setOpen] = React.useState(false);
-
+    const [sliderIdx, setSliderIdx] = React.useState(1);
+    const images = [
+        process.env.REACT_APP_MEDIA_URL + author_avatar_url,
+        'http://placekitten.com/g/400/200',
+        'http://placekitten.com/g/400/200',
+    ];
+    const settings = {
+        infinite: false,
+        dots: true,
+        //@ts-ignore
+        beforeChange: (current, next) => setSliderIdx(next + 1),
+        adaptiveHeight: true,
+        arrows: false,
+        speed: 500,
+    };
     return (
         <div>
             <MainBlock
@@ -110,6 +127,15 @@ export const Post: React.FC<IPost> = ({
                         </More>
                     </div>
                     <div className={styles.body}>{body}</div>
+                    <div className={styles.attachments}>
+                        <Slider {...settings}>
+                            {images.map((img) => (
+                                <div>
+                                    <img src={img} alt="" />
+                                </div>
+                            ))}
+                        </Slider>
+                    </div>
                     <div className={styles.footer}>
                         <div className={styles.likes}>
                             <LikeButton

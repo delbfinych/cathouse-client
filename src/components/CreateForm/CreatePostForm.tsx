@@ -35,19 +35,32 @@ export const CreatePostForm: React.FC<IProps> = ({ onSubmit }) => {
     const handleSumbit = (e: any) => {
         e.preventDefault();
         const text = inputRef.current?.innerText!;
-        dispatch(userPostSlice.actions.setAttachments(attachments));
+        dispatch(
+            userPostSlice.actions.setAttachments(
+                photos.map((photo) => photo.serverPath)
+            )
+        );
         onSubmit(text);
+        uploaderRef.current!.value = '';
         inputRef.current!.innerText = '';
-        setAttachments([]);
         setPhotos([]);
     };
-    const [attachments, setAttachments] = React.useState<string[]>([]);
+    // const [attachments, setAttachments] = React.useState<string[]>([]);
     const dispatch = useAppDispatch();
-    const handleAttach = (path: string) => {
-        setAttachments((p) => [...p, path]);
+    const handleAttach = (path: string, id: string) => {
+        setPhotos(
+            photos.map((photo) => {
+                if (photo.id === id) {
+                    photo.serverPath = path;
+                }
+                return photo;
+            })
+        );
     };
 
-    const [photos, setPhotos] = React.useState<{ id: string; file: any }[]>([]);
+    const [photos, setPhotos] = React.useState<
+        { id: string; file: any; serverPath: string }[]
+    >([]);
     const uploaderRef = React.useRef<HTMLInputElement>(null);
     const handleUploadChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         //@ts-ignore
@@ -57,18 +70,19 @@ export const CreatePostForm: React.FC<IProps> = ({ onSubmit }) => {
             return {
                 id: v4(),
                 file: data,
+                serverPath: '',
             };
         });
 
         setPhotos((p) => [...p, ...newPart]);
     };
-
+    console.log(photos);
     const refId = v4();
-    const handleDeleteAttachment = (path: string) => {
+    const handleDeleteAttachment = (path: string, id: string) => {
         if (path) {
             mediaApi.remove([path]);
         }
-        setPhotos(photos.filter((photo) => photo.id !== path));
+        setPhotos(photos.filter((photo) => photo.id !== id));
     };
 
     return (
@@ -118,9 +132,10 @@ export const CreatePostForm: React.FC<IProps> = ({ onSubmit }) => {
             <div className={styles.uploadImgBlock}>
                 {photos.map((p) => (
                     <ImageWithUploadingStatus
+                        id={p.id}
                         key={p.id}
                         file={p.file}
-                        onDelete={() => handleDeleteAttachment(p.id)}
+                        onDelete={handleDeleteAttachment}
                         onUpload={handleAttach}
                     />
                 ))}
@@ -131,12 +146,14 @@ export const CreatePostForm: React.FC<IProps> = ({ onSubmit }) => {
 
 interface IImageWithUploadingStatusProps {
     file: any;
-    onDelete: (path: string) => any;
-    onUpload: (path: string) => any;
+    onDelete: (path: string, id: string) => any;
+    id: string;
+    onUpload: (path: string, id: string) => any;
 }
 const ImageWithUploadingStatus: React.FC<IImageWithUploadingStatusProps> = ({
     file,
     onDelete,
+    id,
     onUpload,
 }) => {
     const [loading, setLoading] = React.useState(true);
@@ -154,7 +171,7 @@ const ImageWithUploadingStatus: React.FC<IImageWithUploadingStatusProps> = ({
                     const path = e.target?.response?.[0];
                     setUrl(path);
                     setLoading(false);
-                    onUpload(path);
+                    onUpload(path, id);
                 }
             };
 
@@ -175,7 +192,7 @@ const ImageWithUploadingStatus: React.FC<IImageWithUploadingStatusProps> = ({
 
     const handleCancel = () => {
         xhrRef.current.abort();
-        onDelete('');
+        onDelete('', id);
     };
     return loading ? (
         <LoadingProgress
@@ -184,7 +201,7 @@ const ImageWithUploadingStatus: React.FC<IImageWithUploadingStatusProps> = ({
         ></LoadingProgress>
     ) : (
         <div className={styles.imgPreview}>
-            <div onClick={() => onDelete(url)} className={styles.close}>
+            <div onClick={() => onDelete(url, id)} className={styles.close}>
                 <div
                     style={{
                         backgroundImage: `url(${getMediaUrl(

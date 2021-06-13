@@ -23,3 +23,5 @@ export const mediaApi = {
 
 export const getMediaUrl = (path: string | undefined) =>
     process.env.REACT_APP_MEDIA_URL! + path;
+    export const getCompressedMediaUrl = (path: string | undefined) =>
+    process.env.REACT_APP_MEDIA_URL! + "c_" + path;

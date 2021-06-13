@@ -29,7 +29,7 @@
     right: 20px;
 }
 
-.postField[contentEditable='true']:focus{
+.postField[contentEditable='true']:not(:empty){
     & + .btn {
         display: block;
     }

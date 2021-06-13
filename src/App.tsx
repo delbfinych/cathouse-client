@@ -41,7 +41,7 @@ function App() {
             </div>
         );
     }
-return  <div>ведуца технические работы</div>
+
     return (
         <div style={{ position: 'relative' }} className="d-flex flex-column">
             <Header />

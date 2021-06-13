@@ -163,7 +163,7 @@ const ImageWithUploadingStatus: React.FC<IImageWithUploadingStatusProps> = ({
     React.useEffect(() => {
         (async () => {
             const xhr = xhrRef.current;
-            xhr.open('POST', getMediaUrl(''));
+            xhr.open('POST', getMediaUrl('', false));
             xhr.responseType = 'json';
             xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
             xhr.onreadystatechange = (e: any) => {
@@ -205,7 +205,8 @@ const ImageWithUploadingStatus: React.FC<IImageWithUploadingStatusProps> = ({
                 <div
                     style={{
                         backgroundImage: `url(${getMediaUrl(
-                            'b5a4a149-9e5b-4d6a-8c23-b34810c8c6a3.png'
+                            'b5a4a149-9e5b-4d6a-8c23-b34810c8c6a3.png',
+                            false
                         )})`,
                     }}
                 ></div>

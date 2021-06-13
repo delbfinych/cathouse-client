@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import React from 'react';
 import { useHistory } from 'react-router';
 import { commentApi, IComment } from '../../api/comment';
+import { getMediaUrl } from '../../api/media';
 import { IUser, userApi } from '../../api/user';
 import { useAppDispatch } from '../../hooks';
 import { removeComment, updateComment } from '../../store/slices/comments';
@@ -82,7 +83,7 @@ export const CommentItem: React.FC<IComment> = ({
             <Avatar
                 src={
                     author_avatar_url &&
-                    process.env.REACT_APP_MEDIA_URL + author_avatar_url
+                    getMediaUrl(author_avatar_url)
                 }
                 className={styles.avatar}
                 height="40px"

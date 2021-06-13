@@ -10,6 +10,7 @@ import clsx from 'clsx';
 import { NewsFeed } from './icons/NewsFeed';
 import { Settings } from './icons/Settings';
 import { useAppSelector } from '../../hooks';
+import { getMediaUrl } from '../../api/media';
 
 export const LeftPanel: React.FC = () => {
     return (
@@ -44,9 +45,7 @@ const UserInfo: React.FC = () => {
                     <>
                         <Avatar
                             src={
-                                user.avatar_url &&
-                                process.env.REACT_APP_MEDIA_URL +
-                                    user.avatar_url
+                                user.avatar_url && getMediaUrl(user.avatar_url)
                             }
                             className={styles.avatar}
                             height="40px"

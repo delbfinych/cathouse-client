@@ -9,6 +9,7 @@ import { IUser, TSimpleUser, userApi } from '../../api/user';
 import { useHistory } from 'react-router';
 import { useAppSelector } from '../../hooks';
 import { AlertDialog } from '../Dialog/AlertDialog';
+import { getMediaUrl } from '../../api/media';
 
 export const UserList: React.FC = ({ children }) => {
     return (
@@ -73,7 +74,7 @@ export const UserListItem: React.FC<TSimpleUser> = ({
                     width="40px"
                     src={
                         avatar_url &&
-                        process.env.REACT_APP_MEDIA_URL + avatar_url
+                        getMediaUrl(avatar_url)
                     }
                 />
                 <div className={styles.userName}>

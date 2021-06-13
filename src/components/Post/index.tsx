@@ -15,6 +15,7 @@ import { AlertDialog } from '../Dialog/AlertDialog';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick.css';
+import { getMediaUrl } from '../../api/media';
 
 export const Post: React.FC<IPost> = ({
     author_avatar_url,
@@ -107,8 +108,7 @@ export const Post: React.FC<IPost> = ({
                             last_name={author_last_name}
                             src={
                                 author_avatar_url &&
-                                process.env.REACT_APP_MEDIA_URL +
-                                    author_avatar_url
+                                getMediaUrl(author_avatar_url)
                             }
                         ></Avatar>
                         <div onClick={gotoProfile} className={styles.userInfo}>
@@ -128,7 +128,7 @@ export const Post: React.FC<IPost> = ({
                         <Slider {...settings}>
                             {attachments.map((url) => (
                                 <div>
-                                    <img src={process.env.REACT_APP_MEDIA_URL + url} alt="" />
+                                    <img src={getMediaUrl(url)} alt="" />
                                 </div>
                             ))}
                         </Slider>

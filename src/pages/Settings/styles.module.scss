@@ -95,14 +95,14 @@
 }
 
 .uploadImg {
-    top: -10px;
-    right: -10px;
+    top: -5px;
+    right: -7px;
     position: absolute;
 
     cursor: pointer;
     & svg {
         overflow: visible;
-        height: 30px;
-        width: 30px;
+        height: 20px;
+        width: 20px;
     }
 }

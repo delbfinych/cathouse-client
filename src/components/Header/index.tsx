@@ -1,5 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router';
+import { getMediaUrl } from '../../api/media';
 import { postApi } from '../../api/post';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { userActions } from '../../store/slices/user';
@@ -57,8 +58,8 @@ export const Header: React.FC = () => {
                                 last_name={user.last_name}
                                 src={
                                     user.avatar_url &&
-                                    process.env.REACT_APP_MEDIA_URL +
-                                        user.avatar_url
+                                    getMediaUrl(user.avatar_url)
+                                        
                                 }
                             />
                         </div>

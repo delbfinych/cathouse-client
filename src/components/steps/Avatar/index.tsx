@@ -23,13 +23,7 @@ export const AvatarStep: React.FC = () => {
             setAvatarUrl(imageUrl);
         }
     };
-    React.useEffect(() => {
-        if (inputRef.current) {
-            inputRef.current.addEventListener('change', handleInputChange);
-        }
-        return () =>
-            inputRef.current?.removeEventListener('change', handleInputChange);
-    }, []);
+   
 
     const [isLoading, setLoading] = React.useState(false);
     const handleSubmit = async () => {
@@ -85,6 +79,7 @@ export const AvatarStep: React.FC = () => {
                     id="image"
                     type="file"
                     hidden
+                    onChange={handleInputChange}
                 />
                 <Button
                     disabled={isLoading}

@@ -63,7 +63,7 @@
         margin: auto;
         border-radius: var(--border-radius);
         height: auto;
-        width: 100%;
+        max-width: 100%;
     }
 
     & ul li {
@@ -75,15 +75,6 @@
     }
 }
 
-.sliderPaging {
-    width: 48px;
-    height: 48px;
-    margin-right: 20px;
-    & img {
-        height: 100%;
-        width: 100%;
-    }
-}
 
 .slidesCounter {
     position: absolute;

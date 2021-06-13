@@ -1,3 +1,4 @@
+import { mediaApi } from './../../api/media';
 import { IPaginationResponse, userApi } from '../../api/user';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AppThunk } from '..';
@@ -8,7 +9,8 @@ const initialState = {
     total_count: 0,
     total_pages: 1,
     failure: false,
-    loading: false,
+    loading: true,
+    attachments: [] as string[],
 };
 export const userPostSlice = createSlice({
     name: 'userPosts',
@@ -46,11 +48,24 @@ export const userPostSlice = createSlice({
             const i = state.posts.findIndex((p) => p.post_id === post.post_id);
             state.posts[i] = post;
         },
+        setAttachments: (state, action: PayloadAction<string[]>) => {
+            state.attachments = action.payload;
+        },
+        resetAttachments: (state) => {
+            state.attachments = [];
+        },
     },
 });
 
-const { setPosts, setFailure, setLoading, appendPost, deletePost, update } =
-    userPostSlice.actions;
+const {
+    setPosts,
+    setFailure,
+    setLoading,
+    appendPost,
+    deletePost,
+    update,
+    resetAttachments,
+} = userPostSlice.actions;
 export const loadUserWall =
     (id: number, page: number): AppThunk =>
     async (dispatch) => {
@@ -81,11 +96,18 @@ export const loadFollowingWall =
     };
 export const addPost =
     (text: string): AppThunk =>
-    async (dispatch) => {
+    async (dispatch, getState) => {
         try {
             dispatch(setLoading(true));
             const res = await postApi.create({ message: text });
+            res.data.attachments = getState().posts.attachments;
+            console.log(res.data);
             dispatch(appendPost(res.data));
+            await mediaApi.attach({
+                body: getState().posts.attachments,
+                post_id: res.data.post_id,
+            });
+            dispatch(resetAttachments());
             dispatch(setFailure(false));
         } catch (err) {
             dispatch(setFailure(true));

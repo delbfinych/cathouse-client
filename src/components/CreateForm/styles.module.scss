@@ -29,7 +29,7 @@
     right: 20px;
 }
 
-.postField[contentEditable='true']:not(:empty) {
+.postField[contentEditable='true']:focus{
     & + .btn {
         display: block;
     }
@@ -65,4 +65,42 @@
     z-index: 100;
     right: 0;
     top: 70px;
+}
+
+.imgPreview {
+    max-width: 250px;
+    position: relative;
+
+    & img {
+        height: auto;
+        width: 100%;
+        border-radius: var(--border-radius);
+    }
+
+    margin-right: 10px;
+
+    & .close {
+        background-color: rgba(51, 51, 51, 0.72);
+        padding: 5px;
+        position: absolute;
+        border-radius: var(--border-radius);
+        right: 0;
+        cursor: pointer;
+        & div {
+            width: 8px;
+            height: 8px;
+            background: no-repeat 0 -40px;
+            opacity: 0.85;
+        }
+        &:hover div {
+            opacity: 1;
+        }
+    }
+}
+
+.uploadImgBlock {
+    padding: 0px 20px 20px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
 }

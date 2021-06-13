@@ -10,7 +10,16 @@ import { Picker } from 'emoji-mart';
 import 'emoji-mart/css/emoji-mart.css';
 import styles from './styles.module.scss';
 import { Smile } from './Smile';
-import { addPost } from '../../store/slices/userPosts';
+import userPosts, {
+    addPost,
+    userPostSlice,
+} from '../../store/slices/userPosts';
+import { CameraIcon } from './CameraIcon';
+import { v4 } from 'uuid';
+import { getMediaUrl, mediaApi } from '../../api/media';
+import { LoadingProgress } from '../Loader/LoadingProgress.tsx';
+import axios from 'axios';
+import { CancelIcon } from '../Loader/LoadingProgress.tsx/CancelIcon';
 
 interface IProps {
     onSubmit: (text: string) => any;
@@ -26,17 +35,47 @@ export const CreatePostForm: React.FC<IProps> = ({ onSubmit }) => {
     const handleSumbit = (e: any) => {
         e.preventDefault();
         const text = inputRef.current?.innerText!;
+        dispatch(userPostSlice.actions.setAttachments(attachments));
         onSubmit(text);
         inputRef.current!.innerText = '';
+        setAttachments([]);
+        setPhotos([]);
     };
+    const [attachments, setAttachments] = React.useState<string[]>([]);
+    const dispatch = useAppDispatch();
+    const handleAttach = (path: string) => {
+        setAttachments((p) => [...p, path]);
+    };
+
+    const [photos, setPhotos] = React.useState<{ id: string; file: any }[]>([]);
+    const uploaderRef = React.useRef<HTMLInputElement>(null);
+    const handleUploadChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        //@ts-ignore
+        const newPart = Array.from(e.target.files).map((file) => {
+            const data = new FormData();
+            data.append('image', file);
+            return {
+                id: v4(),
+                file: data,
+            };
+        });
+
+        setPhotos((p) => [...p, ...newPart]);
+    };
+
+    const refId = v4();
+    const handleDeleteAttachment = (path: string) => {
+        if (path) {
+            mediaApi.remove([path]);
+        }
+        setPhotos(photos.filter((photo) => photo.id !== path));
+    };
+
     return (
         <MainBlock style={{ marginBottom: '20px' }}>
             <form className={styles.form}>
                 <Avatar
-                    src={
-                        user?.avatar_url &&
-                        process.env.REACT_APP_MEDIA_URL + user?.avatar_url
-                    }
+                    src={user?.avatar_url && getMediaUrl(user?.avatar_url)}
                     height="40px"
                     width="40px"
                     first_name={user?.first_name}
@@ -49,6 +88,7 @@ export const CreatePostForm: React.FC<IProps> = ({ onSubmit }) => {
                     role="textbox"
                     className={clsx(styles.postField, styles.body)}
                 ></div>
+
                 <Button
                     onClick={handleSumbit}
                     className={styles.btn}
@@ -60,15 +100,100 @@ export const CreatePostForm: React.FC<IProps> = ({ onSubmit }) => {
                         'Запостить'
                     )}
                 </Button>
-                {/* <div
-                    onBlur={() => setPicking(false)}
-                    onClick={() => setPicking((t) => !t)}
-                    className={styles.smile}
-                >
-                    <Smile size="22px" />
-                </div> */}
-              
+                <div className={styles.photoUploader}>
+                    <label className="cup" htmlFor={refId}>
+                        <CameraIcon />
+                    </label>
+                </div>
+                <input
+                    ref={uploaderRef}
+                    id={refId}
+                    type="file"
+                    hidden
+                    onChange={handleUploadChange}
+                    max="10"
+                    multiple
+                />
             </form>
+            <div className={styles.uploadImgBlock}>
+                {photos.map((p) => (
+                    <ImageWithUploadingStatus
+                        key={p.id}
+                        file={p.file}
+                        onDelete={() => handleDeleteAttachment(p.id)}
+                        onUpload={handleAttach}
+                    />
+                ))}
+            </div>
         </MainBlock>
+    );
+};
+
+interface IImageWithUploadingStatusProps {
+    file: any;
+    onDelete: (path: string) => any;
+    onUpload: (path: string) => any;
+}
+const ImageWithUploadingStatus: React.FC<IImageWithUploadingStatusProps> = ({
+    file,
+    onDelete,
+    onUpload,
+}) => {
+    const [loading, setLoading] = React.useState(true);
+    const [url, setUrl] = React.useState(file);
+    const [percent, setPercent] = React.useState(0);
+    const xhrRef = React.useRef(new XMLHttpRequest());
+    React.useEffect(() => {
+        (async () => {
+            const xhr = xhrRef.current;
+            xhr.open('POST', getMediaUrl(''));
+            xhr.responseType = 'json';
+            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+            xhr.onreadystatechange = (e: any) => {
+                if (xhr.readyState === 4) {
+                    const path = e.target?.response?.[0];
+                    setUrl(path);
+                    setLoading(false);
+                    onUpload(path);
+                }
+            };
+
+            xhr.upload.addEventListener('error', function () {
+                alert(
+                    'Произошла ошибка во время загрузки изображения, попробуйте снова'
+                );
+            });
+            xhr.upload.addEventListener('progress', function (event) {
+                if (event.lengthComputable) {
+                    const complete = ((event.loaded / event.total) * 100) | 0;
+                    setPercent(complete);
+                }
+            });
+            xhr.send(file);
+        })();
+    }, []);
+
+    const handleCancel = () => {
+        xhrRef.current.abort();
+        onDelete('');
+    };
+    return loading ? (
+        <LoadingProgress
+            onCancel={handleCancel}
+            percent={Math.floor(percent)}
+        ></LoadingProgress>
+    ) : (
+        <div className={styles.imgPreview}>
+            <div onClick={() => onDelete(url)} className={styles.close}>
+                <div
+                    style={{
+                        backgroundImage: `url(${getMediaUrl(
+                            'b5a4a149-9e5b-4d6a-8c23-b34810c8c6a3.png'
+                        )})`,
+                    }}
+                ></div>
+            </div>
+            <img src={getMediaUrl(url)} alt="" />
+        </div>
     );
 };

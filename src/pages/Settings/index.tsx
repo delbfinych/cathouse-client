@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
-import { mediaApi } from '../../api/media';
+import { getMediaUrl, mediaApi } from '../../api/media';
 import { IUpdateUserData, IUser, userApi } from '../../api/user';
 import { Avatar } from '../../components/Avatar';
 import { Button } from '../../components/Button';
@@ -42,13 +42,9 @@ export const Settings: React.FC = () => {
                     last_name: user.last_name,
                 });
                 const avUrl = user.avatar_url;
-                setAvatarUrl(
-                    avUrl && `${process.env.REACT_APP_MEDIA_URL}/${avUrl}`
-                );
+                setAvatarUrl(avUrl && `${getMediaUrl(avUrl)}`);
                 const bgUrl = user.background_image_url;
-                setBgUrl(
-                    bgUrl && `${process.env.REACT_APP_MEDIA_URL}/${bgUrl}`
-                );
+                setBgUrl(bgUrl && `${getMediaUrl(bgUrl)}`);
             }
         })();
     }, [user]);
@@ -92,7 +88,6 @@ export const Settings: React.FC = () => {
     const [bgUrl, setBgUrl] = React.useState<string | undefined>('');
     const handleFileChange = (event: any) => {
         const file = event?.target.files[0];
-        console.log(file);
         if (file) {
             const imageUrl = URL.createObjectURL(file);
             if (event?.target.name === 'avatar') {
@@ -105,29 +100,12 @@ export const Settings: React.FC = () => {
     const handleInputChange = (e: any) =>
         setValue(e.target.name, e.target.value);
 
-    React.useEffect(() => {
-        if (bgRef.current) {
-            bgRef.current!.addEventListener('change', handleFileChange);
-        }
-        if (avatarRef.current) {
-            avatarRef.current!.addEventListener('change', handleFileChange);
-        }
-        return () => {
-            avatarRef.current?.removeEventListener('change', handleFileChange);
-            bgRef.current?.removeEventListener('change', handleFileChange);
-        };
-    }, []);
-
     const handleReset = () => {
-        setAvatarUrl(
-            user!.avatar_url &&
-                process.env.REACT_APP_MEDIA_URL + user!.avatar_url
-        );
+        setAvatarUrl(user!.avatar_url && getMediaUrl(user!.avatar_url));
         setBgUrl(
             user!.background_image_url &&
-                process.env.REACT_APP_MEDIA_URL + user!.background_image_url
+                getMediaUrl(user!.background_image_url)
         );
-        console.log(user!);
 
         resetForm({
             first_name: user!.first_name,
@@ -199,6 +177,7 @@ export const Settings: React.FC = () => {
                                     ref={avatarRef}
                                     id="settingsAvatar"
                                     type="file"
+                                    onChange={handleFileChange}
                                 />
                                 <div
                                     className={clsx(
@@ -248,6 +227,7 @@ export const Settings: React.FC = () => {
                                     ref={bgRef}
                                     id="settingsBG"
                                     type="file"
+                                    onChange={handleFileChange}
                                 />
                             </div>
 

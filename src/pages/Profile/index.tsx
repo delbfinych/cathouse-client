@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import React from 'react';
 import { useHistory, useParams } from 'react-router';
+import { getMediaUrl } from '../../api/media';
 import { IUser, userApi } from '../../api/user';
 import { Avatar } from '../../components/Avatar';
 import { Button } from '../../components/Button';
@@ -105,7 +106,9 @@ export const Profile: React.FC = () => {
                 >
                     <div
                         style={{
-                            backgroundImage: `url(${process.env.REACT_APP_MEDIA_URL}/${user.background_image_url})`,
+                            backgroundImage: `url(${getMediaUrl(
+                                user.background_image_url
+                            )})`,
                         }}
                         className={styles.bgFon}
                     ></div>
@@ -115,7 +118,7 @@ export const Profile: React.FC = () => {
                         width="90px"
                         src={
                             user.avatar_url &&
-                            process.env.REACT_APP_MEDIA_URL + user.avatar_url
+                            getMediaUrl(user.avatar_url)
                         }
                         first_name={user.first_name}
                         last_name={user.last_name}

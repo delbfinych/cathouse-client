@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom';
 import clsx from 'clsx';
 import { useAppDispatch } from '../../../hooks';
 import { verifyUser } from '../../../store/slices/user';
+import { getMediaUrl } from '../../../api/media';
 
 export const End: React.FC = () => {
     const history = useHistory();
@@ -32,7 +33,7 @@ export const End: React.FC = () => {
                             width: '32px',
                             marginRight: '3px',
                         }}
-                        src={`${process.env.REACT_APP_MEDIA_URL}/celebration.png`}
+                        src={`${getMediaUrl("celebration.png")}`}
                         alt=""
                     />{' '}
                     Вы успешно зарегистрировались!

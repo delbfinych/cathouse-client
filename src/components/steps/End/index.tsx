@@ -7,6 +7,7 @@ import clsx from 'clsx';
 import { useAppDispatch } from '../../../hooks';
 import { verifyUser } from '../../../store/slices/user';
 import { getMediaUrl } from '../../../api/media';
+import celebration from "../../../static/celebration.png"
 
 export const End: React.FC = () => {
     const history = useHistory();
@@ -33,7 +34,7 @@ export const End: React.FC = () => {
                             width: '32px',
                             marginRight: '3px',
                         }}
-                        src={`${getMediaUrl("celebration.png")}`}
+                        src={celebration}
                         alt=""
                     />{' '}
                     Вы успешно зарегистрировались!

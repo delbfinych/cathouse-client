@@ -37,12 +37,9 @@ http.interceptors.response.use(
                 localStorage.setItem('access_token', accessToken.data.token);
 
                 return http(originalRequest);
-            } catch (e) {
-                
-                console.log("SADSAD");
-            } 
-        }console.log(error.status);
-       
+            } catch (e) {}
+        }
+
         if (error.response.status === 401) {
             store.dispatch(userActions.reset());
             store.dispatch(userActions.setFailure(true));

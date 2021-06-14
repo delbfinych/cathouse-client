@@ -1,0 +1,17 @@
+.body {
+    min-width: 35vw;
+    max-width: 35vw;
+
+    @media screen and (max-width: 1024px) {
+        & {
+            min-width: 90vw;
+           
+        }
+    }
+}
+
+.createCommentForm {
+    margin-top: 20px;
+    // position: sticky;
+    // bottom: 82px;
+}

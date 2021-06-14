@@ -20,7 +20,7 @@ import { getMediaUrl, mediaApi } from '../../api/media';
 import { LoadingProgress } from '../Loader/LoadingProgress.tsx';
 import axios from 'axios';
 import { CancelIcon } from '../Loader/LoadingProgress.tsx/CancelIcon';
-
+import AttachIcons from '../../static/attach_icons.png';
 interface IProps {
     onSubmit: (text: string) => any;
 }
@@ -204,10 +204,7 @@ const ImageWithUploadingStatus: React.FC<IImageWithUploadingStatusProps> = ({
             <div onClick={() => onDelete(url, id)} className={styles.close}>
                 <div
                     style={{
-                        backgroundImage: `url(${getMediaUrl(
-                            'b5a4a149-9e5b-4d6a-8c23-b34810c8c6a3.png',
-                            false
-                        )})`,
+                        backgroundImage: `url(${AttachIcons})`,
                     }}
                 ></div>
             </div>

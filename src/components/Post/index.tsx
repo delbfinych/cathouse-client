@@ -16,6 +16,8 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick.css';
 import { getMediaUrl } from '../../api/media';
+import { Dialog } from '../Dialog';
+import { PostModal } from './PostModal';
 
 export const Post: React.FC<IPost> = ({
     author_avatar_url,
@@ -76,7 +78,11 @@ export const Post: React.FC<IPost> = ({
     const deletePost = () => {
         dispatch(removePost(post_id));
     };
-    const gotoDiscussion = () => history.push(`/post/${post_id}`);
+    const [isModalOpened, toggleModal] = React.useState(false);
+    const gotoDiscussion = () => {
+        // history.push(`/post/${post_id}`)
+        toggleModal(true);
+    };
     const gotoProfile = () => history.push(`/user/${author_id}`);
     const [isDialogOpen, setOpen] = React.useState(false);
     const [sliderIdx, setSliderIdx] = React.useState(1);
@@ -165,6 +171,14 @@ export const Post: React.FC<IPost> = ({
                 onSubmit={deletePost}
                 message="Уверены, что хотите удалить пост?"
             />
+            {isModalOpened && (
+                <Dialog
+                    isOpen={isModalOpened}
+                    onClose={() => toggleModal(false)}
+                >
+                    <PostModal id={post_id} />
+                </Dialog>
+            )}
         </div>
     );
 };

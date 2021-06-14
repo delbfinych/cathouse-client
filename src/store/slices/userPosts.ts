@@ -1,8 +1,9 @@
 import { mediaApi } from './../../api/media';
 import { IPaginationResponse, userApi } from '../../api/user';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AppThunk } from '..';
+import { createSlice, PayloadAction, Selector } from '@reduxjs/toolkit';
+import { AppThunk, RootState } from '..';
 import { IPost, postApi } from '../../api/post';
+import { createSelector } from '@reduxjs/toolkit';
 
 const initialState = {
     posts: [] as IPost[],
@@ -142,4 +143,25 @@ export const updatePost =
 
 export const userPostActions = userPostSlice.actions;
 
+const selectPosts = (state: RootState): IPost[] => state.posts.posts;
+export const selectPost = (post_id: number) =>
+    createSelector<RootState, IPost[], IPost | null>(selectPosts, (posts) => {
+       
+        let l = 0,
+            r = posts.length - 1;
+        while (l !== r) {
+            let m = Math.floor((l + r) / 2);
+            if (posts[m].post_id === post_id) {
+                return posts[m];
+            } else if (posts[m].post_id < post_id) {
+                r = m - 1;
+            } else {
+                l = m + 1;
+            }
+        }
+        if (posts[l].post_id === post_id) {
+            return posts[l];
+        }
+        return null;
+    });
 export default userPostSlice.reducer;

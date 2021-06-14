@@ -3,6 +3,7 @@
 
 body {
     background-color: var(--color-bg);
+    margin-left: calc(100vw - 100%) !important;
 }
 * {
     margin: 0;

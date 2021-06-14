@@ -33,7 +33,7 @@ export const Header: React.FC = () => {
         history.push('/signin');
     };
     return (
-        <div className={styles.header}>
+        <div  className={styles.header}>
             <div className={styles.container}>
                 <h3 className="cup" onClick={() => history.push('/')}>
                     CatHouse

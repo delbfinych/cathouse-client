@@ -23,6 +23,7 @@ export const Dialog: React.FC<IProps> = ({ isOpen, onClose, children }) => {
         document.addEventListener('mousedown', handleClick);
         document.addEventListener('touchstart', handleClick);
         return () => {
+            document.body.style.overflow = `auto`;
             document.removeEventListener('mousedown', handleClick);
             document.removeEventListener('touchstart', handleClick);
         };
@@ -30,7 +31,6 @@ export const Dialog: React.FC<IProps> = ({ isOpen, onClose, children }) => {
 
     const handleClose = () => {
         onClose();
-        document.body.style.overflow = `auto`;
     };
     if (!isOpen) return null;
     return ReactDOM.createPortal(

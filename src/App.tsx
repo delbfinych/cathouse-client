@@ -12,7 +12,7 @@ import { Profile } from './pages/Profile';
 import { Settings } from './pages/Settings';
 import { SignIn } from './pages/SignIn';
 import { SignUp } from './pages/SignUp';
-import { verifyUser } from './store/slices/user';
+import { checkAuth } from './store/slices/user';
 import './styles/globals.scss';
 
 function App() {
@@ -22,11 +22,12 @@ function App() {
 
     const loading = useAppSelector((state) => state.app.isLoading);
     React.useEffect(() => {
-        dispatch(verifyUser());
+        dispatch(checkAuth());
     }, []);
 
     React.useEffect(() => {
         if (failure) {
+            console.log('USEEFFETCT');
             hst.push('/signin');
         }
     }, [failure]);

@@ -35,7 +35,6 @@ export const Settings: React.FC = () => {
 
     React.useEffect(() => {
         (async () => {
-            console.log('sadadsadsdsd');
             if (user) {
                 resetForm({
                     first_name: user.first_name,

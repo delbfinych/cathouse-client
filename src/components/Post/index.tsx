@@ -133,7 +133,7 @@ export const Post: React.FC<IPost> = ({
                     <div className={styles.attachments}>
                         <Slider {...settings}>
                             {attachments.map((url) => (
-                                <div>
+                                <div key={url}>
                                     <img src={getMediaUrl(url)} alt="" />
                                 </div>
                             ))}

@@ -1,9 +1,11 @@
 @import './display';
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap');
 
+html {
+    margin-left: calc(100vw - 100%) !important;
+}
 body {
     background-color: var(--color-bg);
-    margin-left: calc(100vw - 100%) !important;
 }
 * {
     margin: 0;

@@ -62,6 +62,10 @@
         & ul {
             display: flex;
         }
+        
+    }
+    .block {
+        border-radius: 0 !important;
     }
     .listItem {
         border: none;

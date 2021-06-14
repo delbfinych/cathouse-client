@@ -87,7 +87,7 @@ const Menu: React.FC = () => {
         );
     };
     return (
-        <MainBlock>
+        <MainBlock className={styles.block}>
             <ul>
                 <MenuListItem to={`/user/${user?.id}`}>
                     <Home /> <span>Home</span>

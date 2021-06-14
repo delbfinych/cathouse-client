@@ -17,8 +17,7 @@ export const Dialog: React.FC<IProps> = ({ isOpen, onClose, children }) => {
         }
         const handleClick = (event: any) => {
             if (event.target.id === 'backdrop') {
-                onClose();
-                document.body.style.overflow = `auto`;
+                handleClose();
             }
         };
         document.addEventListener('mousedown', handleClick);
@@ -28,6 +27,11 @@ export const Dialog: React.FC<IProps> = ({ isOpen, onClose, children }) => {
             document.removeEventListener('touchstart', handleClick);
         };
     }, []);
+
+    const handleClose = () => {
+        onClose();
+        document.body.style.overflow = `auto`;
+    };
     if (!isOpen) return null;
     return ReactDOM.createPortal(
         <>
@@ -42,7 +46,7 @@ export const Dialog: React.FC<IProps> = ({ isOpen, onClose, children }) => {
                         style={{
                             backgroundImage: `url(${layerControl})`,
                         }}
-                        onClick={() => onClose()}
+                        onClick={handleClose}
                         className={styles.close}
                     ></div>
                 </div>

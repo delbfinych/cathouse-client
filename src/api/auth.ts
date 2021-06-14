@@ -16,4 +16,11 @@ const verifyUsername = (username: string) =>
 
 const verifyToken = () => http.get<IUser>(`/auth/verifyToken`);
 
-export const authApi = { signIn, signUp, verifyUsername, verifyToken };
+const refreshToken = () => http.get('/auth/refreshToken');
+export const authApi = {
+    signIn,
+    signUp,
+    verifyUsername,
+    verifyToken,
+    refreshToken,
+};

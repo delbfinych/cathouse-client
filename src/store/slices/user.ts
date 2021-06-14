@@ -3,7 +3,8 @@ import { IUser, userApi, IUpdateUserData } from './../../api/user';
 import { authApi } from './../../api/auth';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AppThunk } from '..';
-
+import jswDecode from 'jwt-decode';
+import jwtDecode from 'jwt-decode';
 export const userSlice = createSlice({
     name: 'user',
     initialState: {
@@ -13,7 +14,7 @@ export const userSlice = createSlice({
     },
     reducers: {
         setUserData: (state, action: PayloadAction<IUser>) => {
-            state.user = action.payload
+            state.user = action.payload;
         },
         setFailure: (state, action) => {
             state.failure = action.payload;
@@ -28,11 +29,14 @@ export const userSlice = createSlice({
 });
 
 const { setFailure, setLoading, setUserData, reset } = userSlice.actions;
-export const verifyUser = (): AppThunk => async (dispatch) => {
+export const checkAuth = (): AppThunk => async (dispatch) => {
     try {
         dispatch(setLoading(true));
-        const res = await authApi.verifyToken();
-        dispatch(setUserData(res.data));
+        const res = await authApi.refreshToken();
+        //@ts-ignore
+        const { id } = jwtDecode(res.data.token);
+        const user = await userApi.getById(id);
+        dispatch(setUserData(user.data));
         dispatch(setFailure(false));
     } catch (err) {
         dispatch(setFailure(true));

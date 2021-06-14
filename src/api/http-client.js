@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { authApi } from './auth';
-// import { configure } from 'axios-hooks';
+import store from '../store';
+import { userActions } from '../store/slices/user';
 
 let baseURL = 'http://localhost:5000/api/';
 
@@ -21,19 +21,37 @@ http.interceptors.request.use((config) => {
     // config.headers['Content-Type'] = 'application/json';
     return config;
 });
-
 http.interceptors.response.use(
     (response) => {
         return response;
     },
-    async function (error) {
+    async (error) => {
         const originalRequest = error.config;
-        if (error.response.status === 401 && !originalRequest._retry) {
+
+        if (error.response.status === 401 && !originalRequest?._retry) {
             originalRequest._retry = true;
-            const accessToken = await (await authApi.refreshToken()).data.token;
-            localStorage.setItem('access_token', accessToken);
-            return http(originalRequest);
+            try {
+                const accessToken = await instanceForRefresh.get(
+                    '/auth/refreshToken'
+                );
+                localStorage.setItem('access_token', accessToken.data.token);
+
+                return http(originalRequest);
+            } catch (e) {
+                
+                console.log("SADSAD");
+            } 
+        }console.log(error.status);
+       
+        if (error.response.status === 401) {
+            store.dispatch(userActions.reset());
+            store.dispatch(userActions.setFailure(true));
         }
-        return Promise.reject(error);
+        throw error;
     }
 );
+
+const instanceForRefresh = axios.create({
+    baseURL,
+    withCredentials: true,
+});

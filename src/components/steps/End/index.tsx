@@ -5,15 +5,14 @@ import styles from '../Zero/Zero.module.scss';
 import { useHistory } from 'react-router-dom';
 import clsx from 'clsx';
 import { useAppDispatch } from '../../../hooks';
-import { verifyUser } from '../../../store/slices/user';
-import { getMediaUrl } from '../../../api/media';
+import { checkAuth } from '../../../store/slices/user';
 import celebration from "../../../static/celebration.png"
 
 export const End: React.FC = () => {
     const history = useHistory();
     const dispatch = useAppDispatch();
     const handleClick = () => {
-        dispatch(verifyUser());
+        dispatch(checkAuth());
         history.push('/');
     };
     return (

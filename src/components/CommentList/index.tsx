@@ -3,7 +3,6 @@ import React from 'react';
 import { useHistory } from 'react-router';
 import { commentApi, IComment } from '../../api/comment';
 import { getMediaUrl } from '../../api/media';
-import { IUser, userApi } from '../../api/user';
 import { useAppDispatch } from '../../hooks';
 import { removeComment, updateComment } from '../../store/slices/comments';
 import { Avatar } from '../Avatar';

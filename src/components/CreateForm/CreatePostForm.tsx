@@ -1,25 +1,17 @@
 import clsx from 'clsx';
 import React from 'react';
-import { postApi } from '../../api/post';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { Avatar } from '../Avatar';
 import { Button } from '../Button';
 import { Loader } from '../Loader/Loader';
 import { MainBlock } from '../MainBlock';
-import { Picker } from 'emoji-mart';
 import 'emoji-mart/css/emoji-mart.css';
 import styles from './styles.module.scss';
-import { Smile } from './Smile';
-import userPosts, {
-    addPost,
-    userPostSlice,
-} from '../../store/slices/userPosts';
+import { userPostSlice } from '../../store/slices/userPosts';
 import { CameraIcon } from './CameraIcon';
 import { v4 } from 'uuid';
 import { getMediaUrl, mediaApi } from '../../api/media';
 import { LoadingProgress } from '../Loader/LoadingProgress.tsx';
-import axios from 'axios';
-import { CancelIcon } from '../Loader/LoadingProgress.tsx/CancelIcon';
 import AttachIcons from '../../static/attach_icons.png';
 interface IProps {
     onSubmit: (text: string) => any;
@@ -28,7 +20,6 @@ export const CreatePostForm: React.FC<IProps> = ({ onSubmit }) => {
     const { user } = useAppSelector((state) => state.user);
     const inputRef = React.useRef<HTMLDivElement>(null);
 
-    const [isEmojiPicking, setPicking] = React.useState(false);
 
     const loading = useAppSelector((state) => state.posts.loading);
 

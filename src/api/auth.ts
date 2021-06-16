@@ -1,6 +1,4 @@
 import { http } from './http-client';
-import { IUser } from './user';
-
 interface IToken {
     token: string;
 }

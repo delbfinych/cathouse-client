@@ -1,6 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router';
-import { TSimpleUser } from '../../api/user';
+import { IUserWithFollowInfo } from '../../api/user';
 import { UserList, UserListItem } from '../../components/UserList';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getFollowers, getFollowing } from '../../store/slices/people';
@@ -53,7 +53,7 @@ const MAX_LIST_SIZE = 4;
 const List: React.FC<{
     onClick: () => void;
     title: string;
-    content: TSimpleUser[];
+    content: IUserWithFollowInfo[];
     length: number;
 }> = ({ content, onClick, title, length }) => (
     <>

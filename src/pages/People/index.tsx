@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import React from 'react';
 import { useLocation, useParams } from 'react-router';
-import { TSimpleUser, userApi } from '../../api/user';
+import { IUserWithFollowInfo, userApi } from '../../api/user';
 import { LeftPanel } from '../../components/LeftPanel';
 import { MainBlock } from '../../components/MainBlock';
 import { Tab, Tabs } from '../../components/Tabs';
@@ -12,8 +12,8 @@ import styles from './People.module.scss';
 
 export const People: React.FC = () => {
     const { user } = useAppSelector((state) => state.user);
-    const [following, setFollowing] = React.useState([] as TSimpleUser[]);
-    const [followers, setFollowers] = React.useState([] as TSimpleUser[]);
+    const [following, setFollowing] = React.useState([] as IUserWithFollowInfo[]);
+    const [followers, setFollowers] = React.useState([] as IUserWithFollowInfo[]);
     const location = useLocation<{ idx?: number }>();
     const params: { id: string } = useParams();
     React.useEffect(() => {
@@ -59,7 +59,7 @@ export const People: React.FC = () => {
 
 const List: React.FC<{
     onClick?: () => void;
-    content: TSimpleUser[];
+    content: IUserWithFollowInfo[];
 }> = ({ content }) => {
     return (
         <UserList>

@@ -78,7 +78,7 @@ export const Post: React.FC<IPost> = ({
 
     const match = useRouteMatch();
     const gotoDiscussion = () => {
-        history.push(`${match.url}/post/${post_id}`);
+        history.push(`${match.url === '/' ? '' : match.url}/post/${post_id}`);
     };
     const gotoProfile = () => history.push(`/user/${author_id}`);
     const [isDialogOpen, setOpen] = React.useState(false);
@@ -93,7 +93,11 @@ export const Post: React.FC<IPost> = ({
         arrows: false,
         speed: 500,
     };
-
+    // const [userCards, setUserCards] = React.useState([] as IUserCard[]);
+    // const [isModalOpen, setModalOpen] = React.useState(false);
+    // const loadUserCards = () => {
+    //     http.post('/likesStat', {});
+    // };
     return (
         <div>
             <MainBlock
@@ -169,6 +173,24 @@ export const Post: React.FC<IPost> = ({
                 onSubmit={deletePost}
                 message="Уверены, что хотите удалить пост?"
             />
+            {/* <Dialog
+                isOpen={isModalOpen}
+                onClose={() => {
+                    setModalOpen(false);
+                    setUserCards([]);
+                }}
+            >
+                <UserList>
+                    {userCards.map((user) => (
+                        <UserCard
+                            onClick={() => {
+                                history.push(`/user/${user.id}`);
+                            }}
+                            {...user}
+                        />
+                    ))}
+                </UserList>
+            </Dialog> */}
         </div>
     );
 };

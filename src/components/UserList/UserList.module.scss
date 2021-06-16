@@ -16,7 +16,6 @@ ul {
 .li {
     cursor: pointer;
     position: relative;
-
     &:not(:last-child) {
         margin-bottom: 20px;
     }

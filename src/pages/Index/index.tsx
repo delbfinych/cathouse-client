@@ -68,7 +68,6 @@ export const Index: React.FC = () => {
             <Route
                 path={`${match.url}post/:id`}
                 render={(props) => {
-                    console.log(props);
                     //@ts-ignore
                     const id = parseInt(props.match.params.id);
                     return (

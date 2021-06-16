@@ -22,22 +22,20 @@ export interface IUser {
 }
 const getById = (id: number) => http.get<IUser>(`/user/${id}`);
 
-export type TSimpleUser = Pick<
+export type IUserCard = Pick<
     IUser,
-    | 'id'
-    | 'first_name'
-    | 'username'
-    | 'avatar_url'
-    | 'last_name'
-    | 'followed_by_me'
+    'id' | 'avatar_url' | 'username' | 'first_name' | 'last_name'
 >;
+
+export type IUserWithFollowInfo = IUserCard & { followed_by_me: number | null };
+
 const getFollowing = (id: number, page: number) =>
-    http.get<IPaginationResponse<TSimpleUser>>(
+    http.get<IPaginationResponse<IUserWithFollowInfo>>(
         `user/${id}/following?page=${page}`
     );
 
 const getFollowers = (id: number, page: number) =>
-    http.get<IPaginationResponse<TSimpleUser>>(
+    http.get<IPaginationResponse<IUserWithFollowInfo>>(
         `user/${id}/followers?page=${page}`
     );
 
@@ -46,7 +44,7 @@ const follow = (id: number) => http.post(`user/${id}/follow`);
 const unfollow = (id: number) => http.post(`user/${id}/unfollow`);
 
 const search = (query: string, page: number) =>
-    http.get<IPaginationResponse<TSimpleUser>>(
+    http.get<IPaginationResponse<IUserWithFollowInfo>>(
         `user/search?query=${query}&page=${page}`
     );
 export interface IPaginationResponse<T> {

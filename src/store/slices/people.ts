@@ -1,4 +1,4 @@
-import { TSimpleUser, IPaginationResponse } from './../../api/user';
+import { IUserWithFollowInfo, IPaginationResponse } from './../../api/user';
 import { userApi } from '../../api/user';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AppThunk } from '..';
@@ -6,13 +6,13 @@ import { AppThunk } from '..';
 export const peopleSlice = createSlice({
     name: 'people',
     initialState: {
-        following: { data: [] as TSimpleUser[], total_count: 0 },
-        followers: { data: [] as TSimpleUser[], total_count: 0 },
+        following: { data: [] as IUserWithFollowInfo[], total_count: 0 },
+        followers: { data: [] as IUserWithFollowInfo[], total_count: 0 },
         failure: false,
         loading: false,
     },
     reducers: {
-        follow: (state, action: PayloadAction<TSimpleUser>) => {
+        follow: (state, action: PayloadAction<IUserWithFollowInfo>) => {
             state.following.data.push(action.payload);
             state.following.total_count++;
         },
@@ -21,14 +21,14 @@ export const peopleSlice = createSlice({
         },
         loadFollowing: (
             state,
-            action: PayloadAction<IPaginationResponse<TSimpleUser>>
+            action: PayloadAction<IPaginationResponse<IUserWithFollowInfo>>
         ) => {
             state.following.data = action.payload.result;
             state.following.total_count = action.payload.total_count;
         },
         loadFollowers: (
             state,
-            action: PayloadAction<IPaginationResponse<TSimpleUser>>
+            action: PayloadAction<IPaginationResponse<IUserWithFollowInfo>>
         ) => {
             state.followers.data = action.payload.result;
             state.followers.total_count = action.payload.total_count;
@@ -84,7 +84,7 @@ export const getFollowers =
     };
 
 export const followUser =
-    (user: TSimpleUser): AppThunk =>
+    (user: IUserWithFollowInfo): AppThunk =>
     async (dispatch) => {
         try {
             dispatch(setLoading(true));
@@ -99,7 +99,7 @@ export const followUser =
     };
 
 export const unfollowUser =
-    (user: TSimpleUser): AppThunk =>
+    (user: IUserWithFollowInfo): AppThunk =>
     async (dispatch) => {
         try {
             dispatch(setLoading(true));

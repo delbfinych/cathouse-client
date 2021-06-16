@@ -93,6 +93,7 @@ export const Profile: React.FC = () => {
     };
     const match = useRouteMatch();
     const history = useHistory();
+
     return (
         <div style={{ alignItems: 'flex-start' }} className="d-flex">
             <LeftPanel></LeftPanel>
@@ -120,10 +121,7 @@ export const Profile: React.FC = () => {
                         className={styles.avatar}
                         height="90px"
                         width="90px"
-                        src={
-                            user.avatar_url &&
-                            getMediaUrl(user.avatar_url)
-                        }
+                        src={user.avatar_url && getMediaUrl(user.avatar_url)}
                         first_name={user.first_name}
                         last_name={user.last_name}
                     ></Avatar>
@@ -183,10 +181,9 @@ export const Profile: React.FC = () => {
                 onSubmit={toggleFollow}
                 message={`Уверены, что хотите отписаться от ${user.first_name} ${user.last_name}?`}
             />
-             <Route
+            <Route
                 path={`${match.url}/post/:id`}
                 render={(props) => {
-                    console.log(props);
                     //@ts-ignore
                     const id = parseInt(props.match.params.id);
                     return (

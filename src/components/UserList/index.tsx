@@ -5,7 +5,7 @@ import { Avatar } from '../Avatar';
 import { MainBlock } from '../MainBlock';
 import clsx from 'clsx';
 import { More } from '../More';
-import {  TSimpleUser, userApi } from '../../api/user';
+import { IUser, IUserWithFollowInfo, userApi } from '../../api/user';
 import { useHistory } from 'react-router';
 import { useAppSelector } from '../../hooks';
 import { AlertDialog } from '../Dialog/AlertDialog';
@@ -26,7 +26,7 @@ export const UserList: React.FC = ({ children }) => {
     );
 };
 
-export const UserListItem: React.FC<TSimpleUser> = ({
+export const UserListItem: React.FC<IUserWithFollowInfo> = ({
     avatar_url,
     id,
     first_name,

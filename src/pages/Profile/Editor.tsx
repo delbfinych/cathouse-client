@@ -25,6 +25,7 @@ export const DescriptionEditor: React.FC = () => {
             //@ts-ignore
         }
     }, [isOpen]);
+    
     const Description: React.FC = () => {
         return (
             <div

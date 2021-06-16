@@ -1,15 +1,11 @@
 import clsx from 'clsx';
 import React from 'react';
-import { postApi } from '../../api/post';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { Avatar } from '../Avatar';
 import { Button } from '../Button';
 import { Loader } from '../Loader/Loader';
 import { MainBlock } from '../MainBlock';
-import { Picker } from 'emoji-mart';
 import 'emoji-mart/css/emoji-mart.css';
 import styles from './styles.module.scss';
-import { Smile } from './Smile';
 import { addComment } from '../../store/slices/comments';
 
 interface IProps {

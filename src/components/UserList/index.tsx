@@ -5,7 +5,7 @@ import { Avatar } from '../Avatar';
 import { MainBlock } from '../MainBlock';
 import clsx from 'clsx';
 import { More } from '../More';
-import { IUser, TSimpleUser, userApi } from '../../api/user';
+import {  TSimpleUser, userApi } from '../../api/user';
 import { useHistory } from 'react-router';
 import { useAppSelector } from '../../hooks';
 import { AlertDialog } from '../Dialog/AlertDialog';

@@ -12,9 +12,10 @@ import {
 import { useThrottledLazyLoading } from '../../hooks/useThrottleLazyLoading';
 import styles from './Styles.module.scss';
 import { Loader } from '../../components/Loader/Loader';
-import ContentLoader from 'react-content-loader';
-import { MainBlock } from '../../components/MainBlock';
 import { PostLoader } from '../../components/Loader/PostLoader';
+import { Route, useHistory, useRouteMatch } from 'react-router';
+import { Dialog } from '../../components/Dialog';
+import { PostModal } from '../../components/Post/PostModal';
 
 export const Index: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -38,6 +39,8 @@ export const Index: React.FC = () => {
         dispatch(addPost(text));
     };
 
+    const match = useRouteMatch();
+    const history = useHistory();
     useThrottledLazyLoading(page, total_pages, setPage, 1000);
     return (
         <div style={{ alignItems: 'flex-start' }} className="d-flex">
@@ -62,6 +65,22 @@ export const Index: React.FC = () => {
                 )}
             </div>
             <Right />
+            <Route
+                path={`${match.url}post/:id`}
+                render={(props) => {
+                    console.log(props);
+                    //@ts-ignore
+                    const id = parseInt(props.match.params.id);
+                    return (
+                        <Dialog
+                            isOpen={true}
+                            onClose={() => history.push(match.url)}
+                        >
+                            <PostModal id={id} />
+                        </Dialog>
+                    );
+                }}
+            />
         </div>
     );
 };

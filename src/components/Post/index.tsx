@@ -1,7 +1,6 @@
 import React from 'react';
-import { useHistory } from 'react-router';
+import { useHistory, useRouteMatch } from 'react-router';
 import { IPost, postApi } from '../../api/post';
-import { IUser, userApi } from '../../api/user';
 import { useAppDispatch } from '../../hooks';
 import { Avatar } from '../Avatar';
 import { DislikeButton } from '../Button/DislikeButton';
@@ -16,8 +15,6 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick.css';
 import { getMediaUrl } from '../../api/media';
-import { Dialog } from '../Dialog';
-import { PostModal } from './PostModal';
 
 export const Post: React.FC<IPost> = ({
     author_avatar_url,
@@ -78,10 +75,10 @@ export const Post: React.FC<IPost> = ({
     const deletePost = () => {
         dispatch(removePost(post_id));
     };
-    const [isModalOpened, toggleModal] = React.useState(false);
+
+    const match = useRouteMatch();
     const gotoDiscussion = () => {
-        // history.push(`/post/${post_id}`)
-        toggleModal(true);
+        history.push(`${match.url}/post/${post_id}`);
     };
     const gotoProfile = () => history.push(`/user/${author_id}`);
     const [isDialogOpen, setOpen] = React.useState(false);
@@ -96,6 +93,7 @@ export const Post: React.FC<IPost> = ({
         arrows: false,
         speed: 500,
     };
+
     return (
         <div>
             <MainBlock
@@ -171,14 +169,6 @@ export const Post: React.FC<IPost> = ({
                 onSubmit={deletePost}
                 message="Уверены, что хотите удалить пост?"
             />
-            {isModalOpened && (
-                <Dialog
-                    isOpen={isModalOpened}
-                    onClose={() => toggleModal(false)}
-                >
-                    <PostModal id={post_id} />
-                </Dialog>
-            )}
         </div>
     );
 };

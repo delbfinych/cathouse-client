@@ -6,7 +6,6 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { userActions } from '../../store/slices/user';
 import { Avatar } from '../Avatar';
 import { Button } from '../Button';
-import { Container } from '../Container';
 import { CreatePostForm } from '../CreateForm/CreatePostForm';
 import { Dialog } from '../Dialog';
 import { MainBlock } from '../MainBlock';

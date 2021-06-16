@@ -3,7 +3,6 @@ import { IUser, userApi, IUpdateUserData } from './../../api/user';
 import { authApi } from './../../api/auth';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AppThunk } from '..';
-import jswDecode from 'jwt-decode';
 import jwtDecode from 'jwt-decode';
 export const userSlice = createSlice({
     name: 'user',
@@ -28,7 +27,7 @@ export const userSlice = createSlice({
     },
 });
 
-const { setFailure, setLoading, setUserData, reset } = userSlice.actions;
+const { setFailure, setLoading, setUserData } = userSlice.actions;
 export const checkAuth = (): AppThunk => async (dispatch) => {
     try {
         dispatch(setLoading(true));

@@ -3,7 +3,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
 import { getMediaUrl, mediaApi } from '../../api/media';
-import { IUpdateUserData, IUser, userApi } from '../../api/user';
+import { IUpdateUserData } from '../../api/user';
 import { Avatar } from '../../components/Avatar';
 import { Button } from '../../components/Button';
 import { FormInput } from '../../components/FormInput';
@@ -30,7 +30,6 @@ export const Settings: React.FC = () => {
         formState,
         getValues,
         setValue,
-        watch,
     } = useForm<FormInputs>({});
 
     React.useEffect(() => {

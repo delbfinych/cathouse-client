@@ -1,17 +1,19 @@
 import clsx from 'clsx';
 import React from 'react';
-import { useHistory, useParams } from 'react-router';
+import { Route, useHistory, useParams, useRouteMatch } from 'react-router';
 import { getMediaUrl } from '../../api/media';
 import { IUser, userApi } from '../../api/user';
 import { Avatar } from '../../components/Avatar';
 import { Button } from '../../components/Button';
 import { CreatePostForm } from '../../components/CreateForm/CreatePostForm';
+import { Dialog } from '../../components/Dialog';
 import { AlertDialog } from '../../components/Dialog/AlertDialog';
 import { LeftPanel } from '../../components/LeftPanel';
 import { Loader } from '../../components/Loader/Loader';
 import { PostLoader } from '../../components/Loader/PostLoader';
 import { MainBlock } from '../../components/MainBlock';
 import { Post } from '../../components/Post';
+import { PostModal } from '../../components/Post/PostModal';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useThrottledLazyLoading } from '../../hooks/useThrottleLazyLoading';
 import { followUser, unfollowUser } from '../../store/slices/people';
@@ -89,6 +91,8 @@ export const Profile: React.FC = () => {
     const handleSubmit = async (text: string) => {
         dispatch(addPost(text));
     };
+    const match = useRouteMatch();
+    const history = useHistory();
     return (
         <div style={{ alignItems: 'flex-start' }} className="d-flex">
             <LeftPanel></LeftPanel>
@@ -178,6 +182,22 @@ export const Profile: React.FC = () => {
                 onCancel={() => setOpen(false)}
                 onSubmit={toggleFollow}
                 message={`Уверены, что хотите отписаться от ${user.first_name} ${user.last_name}?`}
+            />
+             <Route
+                path={`${match.url}/post/:id`}
+                render={(props) => {
+                    console.log(props);
+                    //@ts-ignore
+                    const id = parseInt(props.match.params.id);
+                    return (
+                        <Dialog
+                            isOpen={true}
+                            onClose={() => history.push(match.url)}
+                        >
+                            <PostModal id={id} />
+                        </Dialog>
+                    );
+                }}
             />
         </div>
     );

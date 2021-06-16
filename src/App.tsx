@@ -1,13 +1,11 @@
 import React from 'react';
 import { Route, Switch, useHistory } from 'react-router';
-import Slider from 'react-slick';
 import { Container } from './components/Container';
 import { Header } from './components/Header';
 import { Loader } from './components/Loader/Loader';
 import { useAppDispatch, useAppSelector } from './hooks';
 import { Index } from './pages/Index';
 import { People } from './pages/People';
-import { PostPage } from './pages/PostPage';
 import { Profile } from './pages/Profile';
 import { Settings } from './pages/Settings';
 import { SignIn } from './pages/SignIn';
@@ -51,10 +49,9 @@ function App() {
                     <Route exact path="/signup" component={SignUp} />
                     <Route exact path="/signin" component={SignIn} />
 
-                    <Route exact path="/" component={Index} />
-                    <Route exact path="/post/:id" component={PostPage} />
-                    <Route exact path="/user/:id" component={Profile} />
                     <Route exact path="/user/:id/people" component={People} />
+                    <Route path="/user/:id" component={Profile} />
+                    <Route path="/" component={Index} />
                     <Route exact path="/settings/" component={Settings} />
 
                     <Route render={() => <h4>404 not found</h4>} />

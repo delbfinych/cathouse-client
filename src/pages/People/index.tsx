@@ -2,7 +2,6 @@ import clsx from 'clsx';
 import React from 'react';
 import { useLocation, useParams } from 'react-router';
 import { TSimpleUser, userApi } from '../../api/user';
-import { FormInput } from '../../components/FormInput';
 import { LeftPanel } from '../../components/LeftPanel';
 import { MainBlock } from '../../components/MainBlock';
 import { Tab, Tabs } from '../../components/Tabs';
@@ -25,7 +24,6 @@ export const People: React.FC = () => {
             setFollowers(flwrs.data.result);
         })();
     }, [user]);
-
 
     return (
         <div
@@ -62,7 +60,7 @@ export const People: React.FC = () => {
 const List: React.FC<{
     onClick?: () => void;
     content: TSimpleUser[];
-}> = ({ content, onClick }) => {
+}> = ({ content }) => {
     return (
         <UserList>
             {content.map((user) => (

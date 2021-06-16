@@ -146,7 +146,9 @@ export const userPostActions = userPostSlice.actions;
 const selectPosts = (state: RootState): IPost[] => state.posts.posts;
 export const selectPost = (post_id: number) =>
     createSelector<RootState, IPost[], IPost | null>(selectPosts, (posts) => {
-       
+        if (!posts.length) {
+            return null;
+        }
         let l = 0,
             r = posts.length - 1;
         while (l !== r) {

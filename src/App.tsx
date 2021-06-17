@@ -50,9 +50,10 @@ function App() {
                     <Route exact path="/signin" component={SignIn} />
 
                     <Route exact path="/user/:id/people" component={People} />
+					<Route exact path="/settings/" component={Settings} />
                     <Route path="/user/:id" component={Profile} />
                     <Route path="/" component={Index} />
-                    <Route exact path="/settings/" component={Settings} />
+                    
 
                     <Route render={() => <h4>404 not found</h4>} />
                 </Switch>

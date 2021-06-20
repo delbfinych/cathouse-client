@@ -8,6 +8,7 @@ const signIn = (data: object) =>
         ...data,
     });
 
+    //s
 const signUp = (data: object) => http.post<IToken>('/auth/signup', { ...data });
 
 const signOut = () => http.get('/auth/signout');

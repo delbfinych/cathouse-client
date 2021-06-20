@@ -25,7 +25,6 @@ function App() {
 
     React.useEffect(() => {
         if (failure) {
-            console.log('USEEFFETCT');
             hst.push('/signin');
         }
     }, [failure]);

@@ -1,3 +1,4 @@
+import { postApi } from './post';
 import { http } from './http-client';
 interface IToken {
     token: string;
@@ -9,6 +10,7 @@ const signIn = (data: object) =>
 
 const signUp = (data: object) => http.post<IToken>('/auth/signup', { ...data });
 
+const signOut = () => http.get('/auth/signout');
 const verifyUsername = (username: string) =>
     http.get(`/auth/verifyUserName?username=${username}`);
 
@@ -18,4 +20,5 @@ export const authApi = {
     signUp,
     verifyUsername,
     refreshToken,
+    signOut,
 };

@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
+import { authApi } from '../../api/auth';
 import { getMediaUrl, mediaApi } from '../../api/media';
 import { IUpdateUserData } from '../../api/user';
 import { Avatar } from '../../components/Avatar';
@@ -113,6 +114,7 @@ export const Settings: React.FC = () => {
     const history = useHistory();
     const dispatch = useAppDispatch();
     const logout = () => {
+        authApi.signOut();
         localStorage.removeItem('access_token');
         dispatch(userActions.reset());
         history.push('/signin');

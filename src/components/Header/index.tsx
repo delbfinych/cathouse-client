@@ -1,5 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router';
+import { authApi } from '../../api/auth';
 import { getMediaUrl } from '../../api/media';
 import { postApi } from '../../api/post';
 import { useAppDispatch, useAppSelector } from '../../hooks';
@@ -27,6 +28,7 @@ export const Header: React.FC = () => {
 
     const dispatch = useAppDispatch();
     const logout = () => {
+        authApi.signOut();
         localStorage.removeItem('access_token');
         dispatch(userActions.reset());
         history.push('/signin');

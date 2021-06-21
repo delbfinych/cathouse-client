@@ -15,6 +15,7 @@ import { checkAuth } from './store/slices/user';
 import './styles/globals.scss';
 
 function App() {
+    console.log("LOGIN");
     const dispatch = useAppDispatch();
 
     const loading = useAppSelector((state) => state.app.isLoading);

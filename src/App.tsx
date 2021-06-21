@@ -52,7 +52,7 @@ function App() {
                         component={Settings}
                     />
                     <PrivateRoute path="/user/:id" component={Profile} />
-                    <PrivateRoute path={['/']} component={Index} />
+                    <PrivateRoute path="/" component={Index} />
 
                     <Route render={() => <h4>404 not found</h4>} />
                 </Switch>

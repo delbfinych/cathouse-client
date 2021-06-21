@@ -3,6 +3,7 @@ import { Route, Switch, useHistory } from 'react-router';
 import { Container } from './components/Container';
 import { Header } from './components/Header';
 import { Loader } from './components/Loader/Loader';
+import { PrivateRoute } from './components/PrivateRoute';
 import { useAppDispatch, useAppSelector } from './hooks';
 import { Index } from './pages/Index';
 import { People } from './pages/People';
@@ -15,19 +16,11 @@ import './styles/globals.scss';
 
 function App() {
     const dispatch = useAppDispatch();
-    const hst = useHistory();
-    const { failure } = useAppSelector((state) => state.user);
 
     const loading = useAppSelector((state) => state.app.isLoading);
     React.useEffect(() => {
         dispatch(checkAuth());
     }, []);
-
-    React.useEffect(() => {
-        if (failure) {
-            hst.push('/signin');
-        }
-    }, [failure]);
 
     if (loading) {
         return (
@@ -48,11 +41,18 @@ function App() {
                     <Route exact path="/signup" component={SignUp} />
                     <Route exact path="/signin" component={SignIn} />
 
-                    <Route exact path="/user/:id/people" component={People} />
-					<Route exact path="/settings/" component={Settings} />
-                    <Route path="/user/:id" component={Profile} />
-                    <Route path="/" component={Index} />
-                    
+                    <PrivateRoute
+                        exact
+                        path="/user/:id/people"
+                        component={People}
+                    />
+                    <PrivateRoute
+                        exact
+                        path="/settings/"
+                        component={Settings}
+                    />
+                    <PrivateRoute path="/user/:id" component={Profile} />
+                    <PrivateRoute path={['/']} component={Index} />
 
                     <Route render={() => <h4>404 not found</h4>} />
                 </Switch>

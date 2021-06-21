@@ -30,11 +30,11 @@ export const Header: React.FC = () => {
     const logout = () => {
         authApi.signOut();
         localStorage.removeItem('access_token');
-        dispatch(userActions.reset());
+        dispatch(userActions.logout());
         history.push('/signin');
     };
     return (
-        <div  className={styles.header}>
+        <div className={styles.header}>
             <div className={styles.container}>
                 <h3 className="cup" onClick={() => history.push('/')}>
                     CatHouse
@@ -60,7 +60,6 @@ export const Header: React.FC = () => {
                                 src={
                                     user.avatar_url &&
                                     getMediaUrl(user.avatar_url)
-                                        
                                 }
                             />
                         </div>

@@ -116,7 +116,7 @@ export const Settings: React.FC = () => {
     const logout = () => {
         authApi.signOut();
         localStorage.removeItem('access_token');
-        dispatch(userActions.reset());
+        dispatch(userActions.logout());
         history.push('/signin');
     };
     const resetBg = (e: any) => {

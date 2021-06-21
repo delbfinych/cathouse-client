@@ -10,6 +10,7 @@ export const userSlice = createSlice({
         user: null as IUser | null,
         failure: false,
         loading: false,
+        isAuth: false,
     },
     reducers: {
         setUserData: (state, action: PayloadAction<IUser>) => {
@@ -24,10 +25,17 @@ export const userSlice = createSlice({
         reset: (state) => {
             state.user = null;
         },
+        setAuth: (state, action: PayloadAction<boolean>) => {
+            state.isAuth = action.payload;
+        },
+        logout: (state) => {
+            state.user = null;
+            state.isAuth = false;
+        },
     },
 });
 
-const { setFailure, setLoading, setUserData } = userSlice.actions;
+const { setFailure, setLoading, setUserData, setAuth } = userSlice.actions;
 export const checkAuth = (): AppThunk => async (dispatch) => {
     try {
         dispatch(setLoading(true));
@@ -35,10 +43,12 @@ export const checkAuth = (): AppThunk => async (dispatch) => {
         //@ts-ignore
         const { id } = jwtDecode(res.data.token);
         const user = await userApi.getById(id);
+        dispatch(setAuth(true));
         dispatch(setUserData(user.data));
         dispatch(setFailure(false));
     } catch (err) {
         dispatch(setFailure(true));
+        dispatch(setAuth(false));
     } finally {
         dispatch(setLoading(false));
         dispatch(appActions.setLoading(false));
